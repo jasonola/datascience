@@ -1,0 +1,20 @@
+Package: Pokestats
+Title: Pokemon Stats
+Version: 0.0.0.9000
+Authors@R: person('Jason', 'Ola', email = 'olajason@yahoo.fr', role = c('cre', 'aut'))
+Description: A golem app to visualise pokemon base stats
+License: MIT + file LICENSE
+Imports: 
+    config (>= 0.3.1),
+    dplyr,
+    ggplot2,
+    golem (>= 0.3.1),
+    httr,
+    magrittr,
+    purrr,
+    shiny (>= 1.6.0),
+    thinkr,
+    tidyr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
