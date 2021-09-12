@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <br>
+    <br>
+    <h3>Music Genre Recognition</h3>
+    <br>
+    <br>
+    <br>
+    <h4>And the result is...</h4>
+    <p>{{ text | safe }}</p>
+    <br>
+    <!--
+    <h4>Spectrogram and tempogram</h4> 
+    <p>will be displayed below if you checked the boxes:</p>
+    {% for visual in visuals %}
+    <img src='/static/images/{{visual}}'/>
+    {% endfor %}
+    -->
+    <br>
+    <a href="{{ url_for('index') }}">Try again</a>
+{% endblock %}

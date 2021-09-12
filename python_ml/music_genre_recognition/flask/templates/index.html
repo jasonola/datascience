@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Loading div displayed when form is loading -->
+<div id="the-loading-div" style="display: none;">
+    <br>
+    <br>
+    <br>
+    <img src="static/loader.gif" alt="Loading GIF">
+    <br>
+    <br>
+    <p>The algorithm is analyzing your file, hang tight. </p>
+</div>
+
+<div id="the-content-div">
+    <div class="container-fluid d-flex h-100">   
+        <div class="row flex-fill min-vh-100">
+
+
+            <div class="col-sm-4 px-5 bg-light form-group"><!--left side -->
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+                <!-- Home page sidebar text -->
+                <div id="sidebar-text">
+                    <p>We created an algorithm that can recognize the musical genre of an audio file. To try it, 
+                        upload a file and choose a model. The dataset used to train the models is the <a href="https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification">GTZAN Dataset</a>.</p>
+                    <p>It can take up to a few minutes !</p>
+                </div>
+
+
+                <!-- Classification reports for all 4 models -->
+                <div id="gs-svm" style="display: none;">
+                    <h4>Model: Kernel SVM</h4>
+                    <img src="../static/confusion_matrix/gs-svm.png" alt="GridSearchCV Classification Report for Kernel SVM Model" style='height: 100%; width: 100%; object-fit: contain'/>
+                </div>
+                <div id="gs-knn" style="display: none;">
+                    <h4>Model: K-nearest neighbors</h4>
+                    <img src="../static/confusion_matrix/gs-knn.png" alt="GridSearchCV Classification Report for KNN Model" style='height: 100%; width: 100%; object-fit: contain'/>
+                </div>
+                <div id="gs-logreg" style="display: none;">
+                    <h4>Model: Logistic Regression</h4>
+                    <img src="../static/confusion_matrix/gs-logreg.png" alt="GridSearchCV Classification Report for Logistic Regression Model" style='height: 100%; width: 100%; object-fit: contain'/>
+                </div>
+                <div id="gs-randomforest" style="display: none;">
+                    <h4>Model: Random Forest</h4>
+                    <img src="../static/confusion_matrix/gs-randomforest.png" alt="GridSearchCV Classification Report for Random Forest Model" style='height: 100%; width: 100%; object-fit: contain'/>
+                </div>
+
+
+                <!-- Sidebar buttons -->
+                <div id="sidebar-buttons-div" class="mt-4">
+                    <button type="button" id="svm-button" class="btn btn-secondary btn-sm py-0">Kernel SVM</button>
+                    <button type="button" id="knn-button" class="btn btn-secondary btn-sm py-0">KNN</button>
+                    <button type="button" id="logreg-button" class="btn btn-secondary btn-sm py-0">Log. Reg.</button>
+                    <button type="button" id="randomforest-button" class="btn btn-secondary btn-sm py-0">Random Forest</button>
+                    <p id="sidebar-back-button" class="mt-4" style="display: none;">Back</p>
+                </div>
+
+
+                <!-- Sidebar bottom div with GITLAB link | FIXED -->
+                <div id="sidebar-bottom-div">
+                    <p>See the project on <a href="https://gitlab.com/ish_unil/students_cl/music-genre-recognition/-/tree/dev">GitLab</a></p>
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="col-sm-8 px-5 form-group"><!--right side -->
+                <br>
+                <br>
+                <form enctype=multipart/form-data action={{url_for('upload_file')}} method="POST" enctype="multipart/form-data">
+                <h3>Music Genre Recognition</h3>
+                <p id="subtitle" class="font-weight-light">By Jason Ola, Melinda Femminis and Andrei Anikin</p>
+                <br>
+                <br>
+                <label for="file-input" class="col-sm-4 col-form-label">The music (.wav):</label>
+                <input type="file" id="file-input" name="file" class="form-control w-100" required="true"/><br>
+                <br>
+                <div class="form-group">
+                    <h4>Select a model</h4>
+                    <input type="radio" id="logreg" name="model" value="logreg" required>
+                    <label for="logreg">Logistic regression</label><br>
+                    <input type="radio" id="knn" name="model" value="knn">
+                    <label for="knn">K-nearest neighbors</label><br>
+                    <input type="radio" id="randomforest" name="model" value="randomforest">
+                    <label for="randomforest">Random forest</label><br>
+                    <input type="radio" id="svm" name="model" value="svm">
+                    <label for="svm">Kernel SVM</label><br>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <h4 class="text-muted">Coming soon: Visuals</h4>
+                    <input type="checkbox" id="spectrogram" name="spectrogram" value="spectrogram" disabled>
+                    <label class="text-muted" for="spectrogram"> Show Spectrogram</label><br>
+                    <input type="checkbox" id="chroma" name="chroma" value="chroma" disabled>
+                    <label class="text-muted" for="chroma"> Show Chroma Spectrogram</label><br>
+                    <input type="checkbox" id="tempo" name="tempo" value="tempo" disabled>
+                    <label class="text-muted" for="tempo"> Show Tempogram</label><br>
+                </div>
+                <br>
+                <br>
+                <br>
+                <input type="submit" value="Submit" class="btn btn-primary" id="submit-button">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        // Show loading gif/text when submitting form
+
+        $('#submit-button').click(function() {
+            if ($('form')[0].checkValidity()) {
+                $('#the-loading-div').show();
+                $('#the-content-div').hide(); 
+            }
+        });
+
+        // The next functions show confusion matrix of models
+        $('#svm-button').click(function() {
+            $('#gs-logreg').hide();
+            $('#gs-knn').hide();
+            $('#gs-randomforest').hide();
+            $('#sidebar-text').hide(); 
+            $('#gs-svm').show();
+            $('#sidebar-back-button').show();
+        });
+        $('#knn-button').click(function() {
+            $('#gs-logreg').hide();
+            $('#gs-randomforest').hide();
+            $('#gs-svm').hide();
+            $('#sidebar-text').hide(); 
+            $('#gs-knn').show();
+            $('#sidebar-back-button').show();
+        });
+        $('#logreg-button').click(function() {
+            $('#gs-knn').hide();
+            $('#gs-randomforest').hide();
+            $('#gs-svm').hide();
+            $('#sidebar-text').hide();
+            $('#gs-logreg').show(); 
+            $('#sidebar-back-button').show();
+        });
+        $('#randomforest-button').click(function() {
+            $('#gs-knn').hide();
+            $('#gs-logreg').hide();
+            $('#gs-svm').hide();
+            $('#sidebar-text').hide();
+            $('#gs-randomforest').show(); 
+            $('#sidebar-back-button').show();
+        });
+        $('#sidebar-back-button').click(function() {
+            $('#gs-knn').hide();
+            $('#gs-logreg').hide();
+            $('#gs-svm').hide();
+            $('#sidebar-text').show();
+            $('#gs-randomforest').hide(); 
+            $('#sidebar-back-button').hide();
+        });
+    });
+    </script>
+{% endblock %}
+
