@@ -1,0 +1,212 @@
+---
+title: "Report 4"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+
+## Import libraries
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+## Part 1
+
+Let's recreate the data for the pie chart, we also factor our sector variable in order of apparition
+
+```{r}
+pie_tax <- tribble(
+  ~sector, ~money,
+  "Economie publique",   4.08,
+  "Finances et impôts",   5.47,
+  "Prévoyance sociale", 28.50,
+  "Sécurité publique", 7.60,
+  "Trafic", 4.09,  
+  "Santé", 14.78,
+  "Enseignement", 28.92,
+  "Environnement", 1.19,
+  "Culture et loisirs", 1.60,
+  "Administration générale",   3.77,
+)%>% 
+  mutate(sector = fct_inorder(sector),
+         year = lubridate::as_date("2019-01-01"))
+```
+
+Now plot a pie chart
+
+```{r}
+pie_tax %>% 
+  ggplot(aes(x = "", 
+             y = money, 
+             fill = sector))+
+  geom_col(width = 1)+
+  coord_polar("y", start = 0)+
+  scale_fill_manual(values = c("#4EAD65","#84C99B","#C0E2CA","#4EAD65","#C0E2CA","#84C99B",
+                               "#4EAD65","#C0E2CA","#84C99B","#C0E2CA"))+
+  labs(title = "Utilisation de vos impôts",
+       subtitle = "Chaque fois qu’il dépense 100 francs,
+l’Etat consacre...")+
+  theme_void()+
+    theme(legend.title = element_blank())
+```
+
+
+
+## Part 2
+
+Let's now improve our chart and highlight the fact that “Education, social, and health accounts for 72.20% of the spending”
+
+```{r}
+pie_tax <- pie_tax %>% 
+  mutate(highlight = case_when(sector == "Prévoyance sociale" ~ "#349439",
+                               sector == "Santé" ~ "#2bad32",
+                               sector == "Enseignement" ~ "#19bf22",
+                               TRUE ~ "gray")) %>% 
+  mutate(highlight = fct_inorder(highlight))
+```
+
+I create an other table to have group others from main sectors
+
+```{r}
+pie_tax_with_others <- pie_tax %>% 
+    mutate(sector = if_else(highlight == "gray", "Autres", as.character(sector))) 
+```
+
+I create a variable for percentage of main sectors to use later in caption
+
+```{r}
+percentage <- pie_tax_with_others %>% 
+  filter(sector !="Autres") %>% 
+  summarise(sum(money)) %>% 
+  pull()
+```
+
+I plot the chart
+
+```{r}
+pie_tax_with_others %>% 
+  ggplot(aes(x = "",
+             y = money,
+             fill = highlight))+
+  geom_col(width = 1,
+           color = "white", 
+           size = 0.1)+
+  coord_polar("y", start = 0)+
+  scale_fill_identity(guide = guide_legend(reverse = TRUE),
+                      breaks = pie_tax_with_others$highlight,
+                      labels = pie_tax_with_others$sector)+
+  labs(title = "Dépenses de l'Etat dans les services publics",
+       caption = paste("Enseignement, social et santé consomment ",
+                       as.character(percentage),
+                       "% des moyens\n"))+
+  theme_void()+
+  theme(legend.title = element_blank())
+```
+
+## Part 3
+
+### Alternatives : 
+
+I thought about just using the data for a regular bar chart where we can have a clear idea of different sizes because people have problems evaluating angles of pie charts.
+
+```{r}
+pie_tax %>% 
+  arrange(money) %>% 
+  ggplot(aes(x = money,
+             y = fct_inorder(sector),
+             fill = highlight))+
+  geom_col(width = 1,
+           color = "white",
+           size = 0.1)+
+  scale_fill_identity(breaks = pie_tax_with_others$highlight,
+                      labels = pie_tax_with_others$sector)+
+  labs(title = "Dépenses de l'Etat dans les services publics\n",
+       x = "\nPourcentage d'argent dépensé",
+       y = "Secteur",
+       caption = paste("Enseignement, social et santé consomment ",
+                       as.character(percentage),
+                       "% des moyens\n"))+
+  theme_minimal()+
+  theme(legend.title = element_blank())
+```
+
+I also thought about doing a better pie chart : the donut chart. I has the same feel as pie chart but it removes the angle problem and we have a better distance perception.
+
+```{r}
+pie_tax_with_others %>% 
+  ggplot(aes(x = 2,
+             y = money,
+             fill = highlight))+
+  geom_col(width = 1,
+           color = "white", 
+           size = 0.1)+
+  coord_polar("y", start = 0)+
+  xlim(0,2.5)+
+  scale_fill_identity(guide = guide_legend(reverse = TRUE),
+                      breaks = pie_tax_with_others$highlight,
+                      labels = pie_tax_with_others$sector)+
+  labs(title = "Dépenses de l'Etat dans les services publics",
+       caption = paste("Enseignement, social et santé consomment ",
+                       as.character(percentage),
+                       "% des moyens\n"))+
+  theme_void()+
+  theme(legend.title = element_blank())
+```
+
+## Part 4
+
+```{r}
+pie_tax_2018 <- tribble(
+  ~sector, ~money,
+  "Economie publique",   4.8,
+  "Finances et impôts",   8.43,
+  "Prévoyance sociale", 27.87,
+  "Sécurité publique", 7.12,
+  "Trafic", 3.58,  
+  "Santé", 12.85,
+  "Enseignement", 28.50,
+  "Environnement", 1.16,
+  "Culture et loisirs", 1.65,
+  "Administration générale",   4.04,
+)%>% 
+  mutate(sector = fct_inorder(sector),
+         year = lubridate::as_date("2018-01-01"))
+```
+
+```{r}
+pie_tax_2017 <- tribble(
+  ~sector, ~money,
+  "Economie publique",   4.26,
+  "Finances et impôts",   4.8,
+  "Prévoyance sociale", 27.55,
+  "Sécurité publique", 7.49,
+  "Trafic", 4.47,  
+  "Santé", 15.26,
+  "Enseignement", 28.97,
+  "Environnement", 0.95,
+  "Culture et loisirs", 1.98,
+  "Administration générale",   4.27,
+)%>% 
+  mutate(sector = fct_inorder(sector),
+         year = lubridate::as_date("2017-01-01"))
+```
+
+```{r}
+full_data <- bind_rows(pie_tax,pie_tax_2018,pie_tax_2017)
+```
+
+```{r}
+full_data %>% 
+  ggplot()+
+  geom_col(aes(year,money), fill = "#2ac981")+
+  facet_wrap(vars(sector), scales = "free_y")+
+  labs(title = "Evolution des dépenses de l'Etat par secteur",
+       x = "\nAnnée",
+       y = "Pourcentage d'argent dépensé\n")+
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme_minimal()
+```
+
+We can see here the evolution of each sector from 2017 to 2019. Social, education, administration and security remained constant however environment got some raise and culture and leisure went down.

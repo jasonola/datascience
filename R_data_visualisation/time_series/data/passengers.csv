@@ -1,0 +1,975 @@
+month,level_1,value
+1980-01,Total Aircraft Arrivals And Departures,6501
+1980-01,Total Passengers,566879
+1980-02,Total Aircraft Arrivals And Departures,6112
+1980-02,Total Passengers,552263
+1980-03,Total Aircraft Arrivals And Departures,6391
+1980-03,Total Passengers,597644
+1980-04,Total Aircraft Arrivals And Departures,6247
+1980-04,Total Passengers,561218
+1980-05,Total Aircraft Arrivals And Departures,6301
+1980-05,Total Passengers,587003
+1980-06,Total Aircraft Arrivals And Departures,6094
+1980-06,Total Passengers,594860
+1980-07,Total Aircraft Arrivals And Departures,6279
+1980-07,Total Passengers,618380
+1980-08,Total Aircraft Arrivals And Departures,6553
+1980-08,Total Passengers,684907
+1980-09,Total Aircraft Arrivals And Departures,6245
+1980-09,Total Passengers,585076
+1980-10,Total Aircraft Arrivals And Departures,6461
+1980-10,Total Passengers,611995
+1980-11,Total Aircraft Arrivals And Departures,6326
+1980-11,Total Passengers,640824
+1980-12,Total Aircraft Arrivals And Departures,6461
+1980-12,Total Passengers,693500
+1981-01,Total Aircraft Arrivals And Departures,6294
+1981-01,Total Passengers,630711
+1981-02,Total Aircraft Arrivals And Departures,5784
+1981-02,Total Passengers,619577
+1981-03,Total Aircraft Arrivals And Departures,6258
+1981-03,Total Passengers,645765
+1981-04,Total Aircraft Arrivals And Departures,5752
+1981-04,Total Passengers,629547
+1981-05,Total Aircraft Arrivals And Departures,5872
+1981-05,Total Passengers,627592
+1981-06,Total Aircraft Arrivals And Departures,5757
+1981-06,Total Passengers,674922
+1981-07,Total Aircraft Arrivals And Departures,6009
+1981-07,Total Passengers,706279
+1981-08,Total Aircraft Arrivals And Departures,6069
+1981-08,Total Passengers,774005
+1981-09,Total Aircraft Arrivals And Departures,5849
+1981-09,Total Passengers,665399
+1981-10,Total Aircraft Arrivals And Departures,5944
+1981-10,Total Passengers,688913
+1981-11,Total Aircraft Arrivals And Departures,5755
+1981-11,Total Passengers,716405
+1981-12,Total Aircraft Arrivals And Departures,6022
+1981-12,Total Passengers,773043
+1982-01,Total Aircraft Arrivals And Departures,5958
+1982-01,Total Passengers,729142
+1982-02,Total Aircraft Arrivals And Departures,5375
+1982-02,Total Passengers,636075
+1982-03,Total Aircraft Arrivals And Departures,5921
+1982-03,Total Passengers,693735
+1982-04,Total Aircraft Arrivals And Departures,5638
+1982-04,Total Passengers,667589
+1982-05,Total Aircraft Arrivals And Departures,5590
+1982-05,Total Passengers,675233
+1982-06,Total Aircraft Arrivals And Departures,5545
+1982-06,Total Passengers,731708
+1982-07,Total Aircraft Arrivals And Departures,5738
+1982-07,Total Passengers,762582
+1982-08,Total Aircraft Arrivals And Departures,5777
+1982-08,Total Passengers,794148
+1982-09,Total Aircraft Arrivals And Departures,5641
+1982-09,Total Passengers,700226
+1982-10,Total Aircraft Arrivals And Departures,5754
+1982-10,Total Passengers,707962
+1982-11,Total Aircraft Arrivals And Departures,5457
+1982-11,Total Passengers,731550
+1982-12,Total Aircraft Arrivals And Departures,5765
+1982-12,Total Passengers,781862
+1983-01,Total Aircraft Arrivals And Departures,5671
+1983-01,Total Passengers,686749
+1983-02,Total Aircraft Arrivals And Departures,5282
+1983-02,Total Passengers,655858
+1983-03,Total Aircraft Arrivals And Departures,5649
+1983-03,Total Passengers,697684
+1983-04,Total Aircraft Arrivals And Departures,5484
+1983-04,Total Passengers,667350
+1983-05,Total Aircraft Arrivals And Departures,5685
+1983-05,Total Passengers,701404
+1983-06,Total Aircraft Arrivals And Departures,5498
+1983-06,Total Passengers,737906
+1983-07,Total Aircraft Arrivals And Departures,5658
+1983-07,Total Passengers,742363
+1983-08,Total Aircraft Arrivals And Departures,5828
+1983-08,Total Passengers,795479
+1983-09,Total Aircraft Arrivals And Departures,5674
+1983-09,Total Passengers,723604
+1983-10,Total Aircraft Arrivals And Departures,5815
+1983-10,Total Passengers,716388
+1983-11,Total Aircraft Arrivals And Departures,5556
+1983-11,Total Passengers,724244
+1983-12,Total Aircraft Arrivals And Departures,5794
+1983-12,Total Passengers,830123
+1984-01,Total Aircraft Arrivals And Departures,5746
+1984-01,Total Passengers,734069
+1984-02,Total Aircraft Arrivals And Departures,5512
+1984-02,Total Passengers,706296
+1984-03,Total Aircraft Arrivals And Departures,5795
+1984-03,Total Passengers,720520
+1984-04,Total Aircraft Arrivals And Departures,5702
+1984-04,Total Passengers,762504
+1984-05,Total Aircraft Arrivals And Departures,5932
+1984-05,Total Passengers,779161
+1984-06,Total Aircraft Arrivals And Departures,5875
+1984-06,Total Passengers,803912
+1984-07,Total Aircraft Arrivals And Departures,5998
+1984-07,Total Passengers,810193
+1984-08,Total Aircraft Arrivals And Departures,6112
+1984-08,Total Passengers,880911
+1984-09,Total Aircraft Arrivals And Departures,5902
+1984-09,Total Passengers,790793
+1984-10,Total Aircraft Arrivals And Departures,5988
+1984-10,Total Passengers,787115
+1984-11,Total Aircraft Arrivals And Departures,5925
+1984-11,Total Passengers,790133
+1984-12,Total Aircraft Arrivals And Departures,6187
+1984-12,Total Passengers,900044
+1985-01,Total Aircraft Arrivals And Departures,6108
+1985-01,Total Passengers,768508
+1985-02,Total Aircraft Arrivals And Departures,5688
+1985-02,Total Passengers,751999
+1985-03,Total Aircraft Arrivals And Departures,6181
+1985-03,Total Passengers,834356
+1985-04,Total Aircraft Arrivals And Departures,6061
+1985-04,Total Passengers,784903
+1985-05,Total Aircraft Arrivals And Departures,6157
+1985-05,Total Passengers,775913
+1985-06,Total Aircraft Arrivals And Departures,6104
+1985-06,Total Passengers,877773
+1985-07,Total Aircraft Arrivals And Departures,6147
+1985-07,Total Passengers,836088
+1985-08,Total Aircraft Arrivals And Departures,6374
+1985-08,Total Passengers,907057
+1985-09,Total Aircraft Arrivals And Departures,6139
+1985-09,Total Passengers,798452
+1985-10,Total Aircraft Arrivals And Departures,6137
+1985-10,Total Passengers,790129
+1985-11,Total Aircraft Arrivals And Departures,5932
+1985-11,Total Passengers,803441
+1985-12,Total Aircraft Arrivals And Departures,6195
+1985-12,Total Passengers,928211
+1986-01,Total Aircraft Arrivals And Departures,6127
+1986-01,Total Passengers,807085
+1986-02,Total Aircraft Arrivals And Departures,5696
+1986-02,Total Passengers,771454
+1986-03,Total Aircraft Arrivals And Departures,6212
+1986-03,Total Passengers,806335
+1986-04,Total Aircraft Arrivals And Departures,6045
+1986-04,Total Passengers,773449
+1986-05,Total Aircraft Arrivals And Departures,6268
+1986-05,Total Passengers,772100
+1986-06,Total Aircraft Arrivals And Departures,6049
+1986-06,Total Passengers,872208
+1986-07,Total Aircraft Arrivals And Departures,6247
+1986-07,Total Passengers,874633
+1986-08,Total Aircraft Arrivals And Departures,6358
+1986-08,Total Passengers,928049
+1986-09,Total Aircraft Arrivals And Departures,6003
+1986-09,Total Passengers,837989
+1986-10,Total Aircraft Arrivals And Departures,6039
+1986-10,Total Passengers,825774
+1986-11,Total Aircraft Arrivals And Departures,5863
+1986-11,Total Passengers,846396
+1986-12,Total Aircraft Arrivals And Departures,6115
+1986-12,Total Passengers,952247
+1987-01,Total Aircraft Arrivals And Departures,6161
+1987-01,Total Passengers,885309
+1987-02,Total Aircraft Arrivals And Departures,5619
+1987-02,Total Passengers,808397
+1987-03,Total Aircraft Arrivals And Departures,6340
+1987-03,Total Passengers,874058
+1987-04,Total Aircraft Arrivals And Departures,6113
+1987-04,Total Passengers,853540
+1987-05,Total Aircraft Arrivals And Departures,6422
+1987-05,Total Passengers,880365
+1987-06,Total Aircraft Arrivals And Departures,6288
+1987-06,Total Passengers,962928
+1987-07,Total Aircraft Arrivals And Departures,6508
+1987-07,Total Passengers,1006201
+1987-08,Total Aircraft Arrivals And Departures,6763
+1987-08,Total Passengers,1045218
+1987-09,Total Aircraft Arrivals And Departures,6320
+1987-09,Total Passengers,928063
+1987-10,Total Aircraft Arrivals And Departures,6464
+1987-10,Total Passengers,936870
+1987-11,Total Aircraft Arrivals And Departures,6392
+1987-11,Total Passengers,942284
+1987-12,Total Aircraft Arrivals And Departures,6886
+1987-12,Total Passengers,1080560
+1988-01,Total Aircraft Arrivals And Departures,6729
+1988-01,Total Passengers,969411
+1988-02,Total Aircraft Arrivals And Departures,6516
+1988-02,Total Passengers,947520
+1988-03,Total Aircraft Arrivals And Departures,6727
+1988-03,Total Passengers,1020237
+1988-04,Total Aircraft Arrivals And Departures,6698
+1988-04,Total Passengers,978738
+1988-05,Total Aircraft Arrivals And Departures,6975
+1988-05,Total Passengers,968082
+1988-06,Total Aircraft Arrivals And Departures,6856
+1988-06,Total Passengers,1057159
+1988-07,Total Aircraft Arrivals And Departures,7147
+1988-07,Total Passengers,1106853
+1988-08,Total Aircraft Arrivals And Departures,7240
+1988-08,Total Passengers,1137586
+1988-09,Total Aircraft Arrivals And Departures,6792
+1988-09,Total Passengers,1036348
+1988-10,Total Aircraft Arrivals And Departures,7048
+1988-10,Total Passengers,1056306
+1988-11,Total Aircraft Arrivals And Departures,7069
+1988-11,Total Passengers,1100585
+1988-12,Total Aircraft Arrivals And Departures,7133
+1988-12,Total Passengers,1216461
+1989-01,Total Aircraft Arrivals And Departures,6952
+1989-01,Total Passengers,1107283
+1989-02,Total Aircraft Arrivals And Departures,6516
+1989-02,Total Passengers,1050398
+1989-03,Total Aircraft Arrivals And Departures,7145
+1989-03,Total Passengers,1160644
+1989-04,Total Aircraft Arrivals And Departures,7190
+1989-04,Total Passengers,1089718
+1989-05,Total Aircraft Arrivals And Departures,7365
+1989-05,Total Passengers,1100198
+1989-06,Total Aircraft Arrivals And Departures,7209
+1989-06,Total Passengers,1171689
+1989-07,Total Aircraft Arrivals And Departures,7342
+1989-07,Total Passengers,1222448
+1989-08,Total Aircraft Arrivals And Departures,7343
+1989-08,Total Passengers,1240544
+1989-09,Total Aircraft Arrivals And Departures,7260
+1989-09,Total Passengers,1195918
+1989-10,Total Aircraft Arrivals And Departures,7562
+1989-10,Total Passengers,1196750
+1989-11,Total Aircraft Arrivals And Departures,7593
+1989-11,Total Passengers,1244156
+1989-12,Total Aircraft Arrivals And Departures,7944
+1989-12,Total Passengers,1356621
+1990-01,Total Aircraft Arrivals And Departures,8070
+1990-01,Total Passengers,1272188
+1990-02,Total Aircraft Arrivals And Departures,7358
+1990-02,Total Passengers,1183722
+1990-03,Total Aircraft Arrivals And Departures,8130
+1990-03,Total Passengers,1296306
+1990-04,Total Aircraft Arrivals And Departures,7891
+1990-04,Total Passengers,1236082
+1990-05,Total Aircraft Arrivals And Departures,8250
+1990-05,Total Passengers,1250117
+1990-06,Total Aircraft Arrivals And Departures,7930
+1990-06,Total Passengers,1318779
+1990-07,Total Aircraft Arrivals And Departures,8123
+1990-07,Total Passengers,1324661
+1990-08,Total Aircraft Arrivals And Departures,8214
+1990-08,Total Passengers,1384333
+1990-09,Total Aircraft Arrivals And Departures,8009
+1990-09,Total Passengers,1257513
+1990-10,Total Aircraft Arrivals And Departures,8337
+1990-10,Total Passengers,1280024
+1990-11,Total Aircraft Arrivals And Departures,8433
+1990-11,Total Passengers,1334484
+1990-12,Total Aircraft Arrivals And Departures,8930
+1990-12,Total Passengers,1482549
+1991-01,Total Aircraft Arrivals And Departures,8615
+1991-01,Total Passengers,1233440
+1991-02,Total Aircraft Arrivals And Departures,7883
+1991-02,Total Passengers,1087214
+1991-03,Total Aircraft Arrivals And Departures,8600
+1991-03,Total Passengers,1200026
+1991-04,Total Aircraft Arrivals And Departures,8572
+1991-04,Total Passengers,1238184
+1991-05,Total Aircraft Arrivals And Departures,9015
+1991-05,Total Passengers,1246966
+1991-06,Total Aircraft Arrivals And Departures,8981
+1991-06,Total Passengers,1467963
+1991-07,Total Aircraft Arrivals And Departures,9198
+1991-07,Total Passengers,1405019
+1991-08,Total Aircraft Arrivals And Departures,9303
+1991-08,Total Passengers,1505693
+1991-09,Total Aircraft Arrivals And Departures,9033
+1991-09,Total Passengers,1391759
+1991-10,Total Aircraft Arrivals And Departures,9455
+1991-10,Total Passengers,1403076
+1991-11,Total Aircraft Arrivals And Departures,9733
+1991-11,Total Passengers,1475565
+1991-12,Total Aircraft Arrivals And Departures,10340
+1991-12,Total Passengers,1630134
+1992-01,Total Aircraft Arrivals And Departures,10196
+1992-01,Total Passengers,1421867
+1992-02,Total Aircraft Arrivals And Departures,9736
+1992-02,Total Passengers,1464483
+1992-03,Total Aircraft Arrivals And Departures,10093
+1992-03,Total Passengers,1408279
+1992-04,Total Aircraft Arrivals And Departures,10001
+1992-04,Total Passengers,1432848
+1992-05,Total Aircraft Arrivals And Departures,10475
+1992-05,Total Passengers,1367468
+1992-06,Total Aircraft Arrivals And Departures,10222
+1992-06,Total Passengers,1542834
+1992-07,Total Aircraft Arrivals And Departures,10703
+1992-07,Total Passengers,1574162
+1992-08,Total Aircraft Arrivals And Departures,10741
+1992-08,Total Passengers,1626682
+1992-09,Total Aircraft Arrivals And Departures,10415
+1992-09,Total Passengers,1498673
+1992-10,Total Aircraft Arrivals And Departures,10752
+1992-10,Total Passengers,1473008
+1992-11,Total Aircraft Arrivals And Departures,10804
+1992-11,Total Passengers,1557646
+1992-12,Total Aircraft Arrivals And Departures,11388
+1992-12,Total Passengers,1732205
+1993-01,Total Aircraft Arrivals And Departures,11322
+1993-01,Total Passengers,1650043
+1993-02,Total Aircraft Arrivals And Departures,10020
+1993-02,Total Passengers,1419927
+1993-03,Total Aircraft Arrivals And Departures,11192
+1993-03,Total Passengers,1597919
+1993-04,Total Aircraft Arrivals And Departures,11181
+1993-04,Total Passengers,1565152
+1993-05,Total Aircraft Arrivals And Departures,11544
+1993-05,Total Passengers,1537191
+1993-06,Total Aircraft Arrivals And Departures,11308
+1993-06,Total Passengers,1717822
+1993-07,Total Aircraft Arrivals And Departures,11681
+1993-07,Total Passengers,1717189
+1993-08,Total Aircraft Arrivals And Departures,11702
+1993-08,Total Passengers,1825434
+1993-09,Total Aircraft Arrivals And Departures,11235
+1993-09,Total Passengers,1608241
+1993-10,Total Aircraft Arrivals And Departures,11729
+1993-10,Total Passengers,1658633
+1993-11,Total Aircraft Arrivals And Departures,11592
+1993-11,Total Passengers,1738822
+1993-12,Total Aircraft Arrivals And Departures,12256
+1993-12,Total Passengers,1950841
+1994-01,Total Aircraft Arrivals And Departures,11985
+1994-01,Total Passengers,1690558
+1994-02,Total Aircraft Arrivals And Departures,11212
+1994-02,Total Passengers,1674645
+1994-03,Total Aircraft Arrivals And Departures,12091
+1994-03,Total Passengers,1833797
+1994-04,Total Aircraft Arrivals And Departures,11797
+1994-04,Total Passengers,1693219
+1994-05,Total Aircraft Arrivals And Departures,12175
+1994-05,Total Passengers,1648928
+1994-06,Total Aircraft Arrivals And Departures,11920
+1994-06,Total Passengers,1811503
+1994-07,Total Aircraft Arrivals And Departures,12241
+1994-07,Total Passengers,1879921
+1994-08,Total Aircraft Arrivals And Departures,12242
+1994-08,Total Passengers,1953458
+1994-09,Total Aircraft Arrivals And Departures,11941
+1994-09,Total Passengers,1767093
+1994-10,Total Aircraft Arrivals And Departures,12413
+1994-10,Total Passengers,1783161
+1994-11,Total Aircraft Arrivals And Departures,12363
+1994-11,Total Passengers,1837525
+1994-12,Total Aircraft Arrivals And Departures,12954
+1994-12,Total Passengers,2070869
+1995-01,Total Aircraft Arrivals And Departures,12818
+1995-01,Total Passengers,1882522
+1995-02,Total Aircraft Arrivals And Departures,11755
+1995-02,Total Passengers,1731013
+1995-03,Total Aircraft Arrivals And Departures,13002
+1995-03,Total Passengers,1891114
+1995-04,Total Aircraft Arrivals And Departures,12806
+1995-04,Total Passengers,1783931
+1995-05,Total Aircraft Arrivals And Departures,13047
+1995-05,Total Passengers,1794882
+1995-06,Total Aircraft Arrivals And Departures,12773
+1995-06,Total Passengers,1940256
+1995-07,Total Aircraft Arrivals And Departures,13195
+1995-07,Total Passengers,2016698
+1995-08,Total Aircraft Arrivals And Departures,13237
+1995-08,Total Passengers,2077971
+1995-09,Total Aircraft Arrivals And Departures,12785
+1995-09,Total Passengers,1919314
+1995-10,Total Aircraft Arrivals And Departures,13303
+1995-10,Total Passengers,1934830
+1995-11,Total Aircraft Arrivals And Departures,13461
+1995-11,Total Passengers,2003006
+1995-12,Total Aircraft Arrivals And Departures,14152
+1995-12,Total Passengers,2220703
+1996-01,Total Aircraft Arrivals And Departures,13768
+1996-01,Total Passengers,1892839
+1996-02,Total Aircraft Arrivals And Departures,13259
+1996-02,Total Passengers,1919938
+1996-03,Total Aircraft Arrivals And Departures,13823
+1996-03,Total Passengers,2036719
+1996-04,Total Aircraft Arrivals And Departures,13606
+1996-04,Total Passengers,1942508
+1996-05,Total Aircraft Arrivals And Departures,14165
+1996-05,Total Passengers,1918785
+1996-06,Total Aircraft Arrivals And Departures,13790
+1996-06,Total Passengers,2128942
+1996-07,Total Aircraft Arrivals And Departures,14150
+1996-07,Total Passengers,2067977
+1996-08,Total Aircraft Arrivals And Departures,14094
+1996-08,Total Passengers,2137310
+1996-09,Total Aircraft Arrivals And Departures,13588
+1996-09,Total Passengers,1908094
+1996-10,Total Aircraft Arrivals And Departures,14091
+1996-10,Total Passengers,2010634
+1996-11,Total Aircraft Arrivals And Departures,13857
+1996-11,Total Passengers,2144333
+1996-12,Total Aircraft Arrivals And Departures,14558
+1996-12,Total Passengers,2406169
+1997-01,Total Aircraft Arrivals And Departures,14380
+1997-01,Total Passengers,2041433
+1997-02,Total Aircraft Arrivals And Departures,13299
+1997-02,Total Passengers,2065920
+1997-03,Total Aircraft Arrivals And Departures,14593
+1997-03,Total Passengers,2194442
+1997-04,Total Aircraft Arrivals And Departures,14138
+1997-04,Total Passengers,2005286
+1997-05,Total Aircraft Arrivals And Departures,14667
+1997-05,Total Passengers,2005959
+1997-06,Total Aircraft Arrivals And Departures,14319
+1997-06,Total Passengers,2226839
+1997-07,Total Aircraft Arrivals And Departures,14700
+1997-07,Total Passengers,2204621
+1997-08,Total Aircraft Arrivals And Departures,14634
+1997-08,Total Passengers,2165016
+1997-09,Total Aircraft Arrivals And Departures,14161
+1997-09,Total Passengers,2056664
+1997-10,Total Aircraft Arrivals And Departures,14505
+1997-10,Total Passengers,1913596
+1997-11,Total Aircraft Arrivals And Departures,14354
+1997-11,Total Passengers,2007658
+1997-12,Total Aircraft Arrivals And Departures,14922
+1997-12,Total Passengers,2286910
+1998-01,Total Aircraft Arrivals And Departures,14684
+1998-01,Total Passengers,1938798
+1998-02,Total Aircraft Arrivals And Departures,12882
+1998-02,Total Passengers,1752422
+1998-03,Total Aircraft Arrivals And Departures,14033
+1998-03,Total Passengers,1895942
+1998-04,Total Aircraft Arrivals And Departures,13560
+1998-04,Total Passengers,1913054
+1998-05,Total Aircraft Arrivals And Departures,14287
+1998-05,Total Passengers,1945342
+1998-06,Total Aircraft Arrivals And Departures,13431
+1998-06,Total Passengers,2017927
+1998-07,Total Aircraft Arrivals And Departures,13782
+1998-07,Total Passengers,1977846
+1998-08,Total Aircraft Arrivals And Departures,13706
+1998-08,Total Passengers,2082829
+1998-09,Total Aircraft Arrivals And Departures,13348
+1998-09,Total Passengers,1902633
+1998-10,Total Aircraft Arrivals And Departures,13957
+1998-10,Total Passengers,2008947
+1998-11,Total Aircraft Arrivals And Departures,13601
+1998-11,Total Passengers,2037230
+1998-12,Total Aircraft Arrivals And Departures,13971
+1998-12,Total Passengers,2330210
+1999-01,Total Aircraft Arrivals And Departures,13831
+1999-01,Total Passengers,2092950
+1999-02,Total Aircraft Arrivals And Departures,12675
+1999-02,Total Passengers,1973070
+1999-03,Total Aircraft Arrivals And Departures,14001
+1999-03,Total Passengers,2158459
+1999-04,Total Aircraft Arrivals And Departures,13604
+1999-04,Total Passengers,2002629
+1999-05,Total Aircraft Arrivals And Departures,14044
+1999-05,Total Passengers,2024338
+1999-06,Total Aircraft Arrivals And Departures,13796
+1999-06,Total Passengers,2241423
+1999-07,Total Aircraft Arrivals And Departures,14089
+1999-07,Total Passengers,2229213
+1999-08,Total Aircraft Arrivals And Departures,14008
+1999-08,Total Passengers,2278976
+1999-09,Total Aircraft Arrivals And Departures,13605
+1999-09,Total Passengers,2147672
+1999-10,Total Aircraft Arrivals And Departures,14080
+1999-10,Total Passengers,2220387
+1999-11,Total Aircraft Arrivals And Departures,13780
+1999-11,Total Passengers,2309505
+1999-12,Total Aircraft Arrivals And Departures,14448
+1999-12,Total Passengers,2386023
+2000-01,Total Aircraft Arrivals And Departures,14152
+2000-01,Total Passengers,2221797
+2000-02,Total Aircraft Arrivals And Departures,13648
+2000-02,Total Passengers,2215569
+2000-03,Total Aircraft Arrivals And Departures,14517
+2000-03,Total Passengers,2345783
+2000-04,Total Aircraft Arrivals And Departures,14189
+2000-04,Total Passengers,2371910
+2000-05,Total Aircraft Arrivals And Departures,14523
+2000-05,Total Passengers,2271392
+2000-06,Total Aircraft Arrivals And Departures,14324
+2000-06,Total Passengers,2419411
+2000-07,Total Aircraft Arrivals And Departures,14726
+2000-07,Total Passengers,2473812
+2000-08,Total Aircraft Arrivals And Departures,14796
+2000-08,Total Passengers,2466113
+2000-09,Total Aircraft Arrivals And Departures,14401
+2000-09,Total Passengers,2380969
+2000-10,Total Aircraft Arrivals And Departures,14941
+2000-10,Total Passengers,2410924
+2000-11,Total Aircraft Arrivals And Departures,14601
+2000-11,Total Passengers,2426484
+2000-12,Total Aircraft Arrivals And Departures,15138
+2000-12,Total Passengers,2614036
+2001-01,Total Aircraft Arrivals And Departures,15253
+2001-01,Total Passengers,2467100
+2001-02,Total Aircraft Arrivals And Departures,13699
+2001-02,Total Passengers,2126733
+2001-03,Total Aircraft Arrivals And Departures,15284
+2001-03,Total Passengers,2451966
+2001-04,Total Aircraft Arrivals And Departures,14893
+2001-04,Total Passengers,2314821
+2001-05,Total Aircraft Arrivals And Departures,15503
+2001-05,Total Passengers,2300020
+2001-06,Total Aircraft Arrivals And Departures,15092
+2001-06,Total Passengers,2447201
+2001-07,Total Aircraft Arrivals And Departures,15393
+2001-07,Total Passengers,2513806
+2001-08,Total Aircraft Arrivals And Departures,15377
+2001-08,Total Passengers,2481805
+2001-09,Total Aircraft Arrivals And Departures,14818
+2001-09,Total Passengers,2285790
+2001-10,Total Aircraft Arrivals And Departures,14898
+2001-10,Total Passengers,2096942
+2001-11,Total Aircraft Arrivals And Departures,14302
+2001-11,Total Passengers,2094570
+2001-12,Total Aircraft Arrivals And Departures,14848
+2001-12,Total Passengers,2513005
+2002-01,Total Aircraft Arrivals And Departures,14563
+2002-01,Total Passengers,2265051
+2002-02,Total Aircraft Arrivals And Departures,13227
+2002-02,Total Passengers,2207855
+2002-03,Total Aircraft Arrivals And Departures,14587
+2002-03,Total Passengers,2496235
+2002-04,Total Aircraft Arrivals And Departures,14187
+2002-04,Total Passengers,2340976
+2002-05,Total Aircraft Arrivals And Departures,14784
+2002-05,Total Passengers,2393972
+2002-06,Total Aircraft Arrivals And Departures,14299
+2002-06,Total Passengers,2456221
+2002-07,Total Aircraft Arrivals And Departures,14796
+2002-07,Total Passengers,2478260
+2002-08,Total Aircraft Arrivals And Departures,14867
+2002-08,Total Passengers,2496030
+2002-09,Total Aircraft Arrivals And Departures,14420
+2002-09,Total Passengers,2345354
+2002-10,Total Aircraft Arrivals And Departures,15050
+2002-10,Total Passengers,2398719
+2002-11,Total Aircraft Arrivals And Departures,14666
+2002-11,Total Passengers,2349313
+2002-12,Total Aircraft Arrivals And Departures,15374
+2002-12,Total Passengers,2751358
+2003-01,Total Aircraft Arrivals And Departures,15268
+2003-01,Total Passengers,2473455
+2003-02,Total Aircraft Arrivals And Departures,13977
+2003-02,Total Passengers,2242013
+2003-03,Total Aircraft Arrivals And Departures,15254
+2003-03,Total Passengers,2217884
+2003-04,Total Aircraft Arrivals And Departures,11780
+2003-04,Total Passengers,1168611
+2003-05,Total Aircraft Arrivals And Departures,9555
+2003-05,Total Passengers,1003619
+2003-06,Total Aircraft Arrivals And Departures,9859
+2003-06,Total Passengers,1527529
+2003-07,Total Aircraft Arrivals And Departures,11727
+2003-07,Total Passengers,2121034
+2003-08,Total Aircraft Arrivals And Departures,12377
+2003-08,Total Passengers,2258839
+2003-09,Total Aircraft Arrivals And Departures,12498
+2003-09,Total Passengers,2243004
+2003-10,Total Aircraft Arrivals And Departures,13422
+2003-10,Total Passengers,2301146
+2003-11,Total Aircraft Arrivals And Departures,14005
+2003-11,Total Passengers,2404322
+2003-12,Total Aircraft Arrivals And Departures,14624
+2003-12,Total Passengers,2702681
+2004-01,Total Aircraft Arrivals And Departures,14695
+2004-01,Total Passengers,2516148
+2004-02,Total Aircraft Arrivals And Departures,13481
+2004-02,Total Passengers,2173157
+2004-03,Total Aircraft Arrivals And Departures,14724
+2004-03,Total Passengers,2365455
+2004-04,Total Aircraft Arrivals And Departures,14768
+2004-04,Total Passengers,2370567
+2004-05,Total Aircraft Arrivals And Departures,15490
+2004-05,Total Passengers,2375387
+2004-06,Total Aircraft Arrivals And Departures,15273
+2004-06,Total Passengers,2603192
+2004-07,Total Aircraft Arrivals And Departures,15809
+2004-07,Total Passengers,2679107
+2004-08,Total Aircraft Arrivals And Departures,15850
+2004-08,Total Passengers,2597601
+2004-09,Total Aircraft Arrivals And Departures,15569
+2004-09,Total Passengers,2441242
+2004-10,Total Aircraft Arrivals And Departures,16352
+2004-10,Total Passengers,2562470
+2004-11,Total Aircraft Arrivals And Departures,16094
+2004-11,Total Passengers,2712571
+2004-12,Total Aircraft Arrivals And Departures,16828
+2004-12,Total Passengers,2956668
+2005-01,Total Aircraft Arrivals And Departures,16666
+2005-01,Total Passengers,2532594
+2005-02,Total Aircraft Arrivals And Departures,15010
+2005-02,Total Passengers,2307000
+2005-03,Total Aircraft Arrivals And Departures,16649
+2005-03,Total Passengers,2628115
+2005-04,Total Aircraft Arrivals And Departures,16813
+2005-04,Total Passengers,2561634
+2005-05,Total Aircraft Arrivals And Departures,17431
+2005-05,Total Passengers,2608397
+2005-06,Total Aircraft Arrivals And Departures,17201
+2005-06,Total Passengers,2806185
+2005-07,Total Aircraft Arrivals And Departures,17523
+2005-07,Total Passengers,2898656
+2005-08,Total Aircraft Arrivals And Departures,17400
+2005-08,Total Passengers,2780426
+2005-09,Total Aircraft Arrivals And Departures,16834
+2005-09,Total Passengers,2654697
+2005-10,Total Aircraft Arrivals And Departures,17371
+2005-10,Total Passengers,2748919
+2005-11,Total Aircraft Arrivals And Departures,17324
+2005-11,Total Passengers,2801076
+2005-12,Total Aircraft Arrivals And Departures,17916
+2005-12,Total Passengers,3103157
+2006-01,Total Aircraft Arrivals And Departures,17780
+2006-01,Total Passengers,2837001
+2006-02,Total Aircraft Arrivals And Departures,16043
+2006-02,Total Passengers,2545676
+2006-03,Total Aircraft Arrivals And Departures,18164
+2006-03,Total Passengers,2847456
+2006-04,Total Aircraft Arrivals And Departures,17672
+2006-04,Total Passengers,2850395
+2006-05,Total Aircraft Arrivals And Departures,17962
+2006-05,Total Passengers,2784615
+2006-06,Total Aircraft Arrivals And Departures,17561
+2006-06,Total Passengers,2980106
+2006-07,Total Aircraft Arrivals And Departures,18018
+2006-07,Total Passengers,3049601
+2006-08,Total Aircraft Arrivals And Departures,17992
+2006-08,Total Passengers,2957866
+2006-09,Total Aircraft Arrivals And Departures,17625
+2006-09,Total Passengers,2765037
+2006-10,Total Aircraft Arrivals And Departures,18398
+2006-10,Total Passengers,2972562
+2006-11,Total Aircraft Arrivals And Departures,18022
+2006-11,Total Passengers,3024706
+2006-12,Total Aircraft Arrivals And Departures,18987
+2006-12,Total Passengers,3418062
+2007-01,Total Aircraft Arrivals And Departures,18452
+2007-01,Total Passengers,2944074
+2007-02,Total Aircraft Arrivals And Departures,16661
+2007-02,Total Passengers,2718900
+2007-03,Total Aircraft Arrivals And Departures,18611
+2007-03,Total Passengers,3071748
+2007-04,Total Aircraft Arrivals And Departures,18021
+2007-04,Total Passengers,2968719
+2007-05,Total Aircraft Arrivals And Departures,18561
+2007-05,Total Passengers,2930477
+2007-06,Total Aircraft Arrivals And Departures,18177
+2007-06,Total Passengers,3125696
+2007-07,Total Aircraft Arrivals And Departures,18622
+2007-07,Total Passengers,3156243
+2007-08,Total Aircraft Arrivals And Departures,18643
+2007-08,Total Passengers,3111873
+2007-09,Total Aircraft Arrivals And Departures,18194
+2007-09,Total Passengers,2900307
+2007-10,Total Aircraft Arrivals And Departures,18950
+2007-10,Total Passengers,3077064
+2007-11,Total Aircraft Arrivals And Departures,18515
+2007-11,Total Passengers,3182693
+2007-12,Total Aircraft Arrivals And Departures,19339
+2007-12,Total Passengers,3513762
+2008-01,Total Aircraft Arrivals And Departures,18868
+2008-01,Total Passengers,3113263
+2008-02,Total Aircraft Arrivals And Departures,18104
+2008-02,Total Passengers,2940491
+2008-03,Total Aircraft Arrivals And Departures,19370
+2008-03,Total Passengers,3264616
+2008-04,Total Aircraft Arrivals And Departures,18884
+2008-04,Total Passengers,3049449
+2008-05,Total Aircraft Arrivals And Departures,19590
+2008-05,Total Passengers,3134572
+2008-06,Total Aircraft Arrivals And Departures,19103
+2008-06,Total Passengers,3215021
+2008-07,Total Aircraft Arrivals And Departures,19697
+2008-07,Total Passengers,3232007
+2008-08,Total Aircraft Arrivals And Departures,19673
+2008-08,Total Passengers,3148362
+2008-09,Total Aircraft Arrivals And Departures,19009
+2008-09,Total Passengers,2888892
+2008-10,Total Aircraft Arrivals And Departures,19664
+2008-10,Total Passengers,3132419
+2008-11,Total Aircraft Arrivals And Departures,19193
+2008-11,Total Passengers,3081842
+2008-12,Total Aircraft Arrivals And Departures,20771
+2008-12,Total Passengers,3493890
+2009-01,Total Aircraft Arrivals And Departures,20373
+2009-01,Total Passengers,3073677
+2009-02,Total Aircraft Arrivals And Departures,17615
+2009-02,Total Passengers,2558953
+2009-03,Total Aircraft Arrivals And Departures,19559
+2009-03,Total Passengers,2901885
+2009-04,Total Aircraft Arrivals And Departures,19625
+2009-04,Total Passengers,2914509
+2009-05,Total Aircraft Arrivals And Departures,19711
+2009-05,Total Passengers,2787124
+2009-06,Total Aircraft Arrivals And Departures,19071
+2009-06,Total Passengers,3053035
+2009-07,Total Aircraft Arrivals And Departures,20264
+2009-07,Total Passengers,3169720
+2009-08,Total Aircraft Arrivals And Departures,20495
+2009-08,Total Passengers,3162960
+2009-09,Total Aircraft Arrivals And Departures,20115
+2009-09,Total Passengers,3063650
+2009-10,Total Aircraft Arrivals And Departures,20986
+2009-10,Total Passengers,3320887
+2009-11,Total Aircraft Arrivals And Departures,20661
+2009-11,Total Passengers,3365250
+2009-12,Total Aircraft Arrivals And Departures,21885
+2009-12,Total Passengers,3832328
+2010-01,Total Aircraft Arrivals And Departures,21502
+2010-01,Total Passengers,3384473
+2010-02,Total Aircraft Arrivals And Departures,19617
+2010-02,Total Passengers,3108244
+2010-03,Total Aircraft Arrivals And Departures,21604
+2010-03,Total Passengers,3448617
+2010-04,Total Aircraft Arrivals And Departures,21303
+2010-04,Total Passengers,3283071
+2010-05,Total Aircraft Arrivals And Departures,22151
+2010-05,Total Passengers,3389972
+2010-06,Total Aircraft Arrivals And Departures,21833
+2010-06,Total Passengers,3621082
+2010-07,Total Aircraft Arrivals And Departures,22593
+2010-07,Total Passengers,3673387
+2010-08,Total Aircraft Arrivals And Departures,22368
+2010-08,Total Passengers,3467630
+2010-09,Total Aircraft Arrivals And Departures,21923
+2010-09,Total Passengers,3393497
+2010-10,Total Aircraft Arrivals And Departures,22488
+2010-10,Total Passengers,3581850
+2010-11,Total Aircraft Arrivals And Departures,22372
+2010-11,Total Passengers,3623080
+2010-12,Total Aircraft Arrivals And Departures,23839
+2010-12,Total Passengers,4063874
+2011-01,Total Aircraft Arrivals And Departures,24000
+2011-01,Total Passengers,3787070
+2011-02,Total Aircraft Arrivals And Departures,22013
+2011-02,Total Passengers,3390264
+2011-03,Total Aircraft Arrivals And Departures,24403
+2011-03,Total Passengers,3708592
+2011-04,Total Aircraft Arrivals And Departures,24266
+2011-04,Total Passengers,3731875
+2011-05,Total Aircraft Arrivals And Departures,24994
+2011-05,Total Passengers,3773137
+2011-06,Total Aircraft Arrivals And Departures,25059
+2011-06,Total Passengers,4011823
+2011-07,Total Aircraft Arrivals And Departures,25908
+2011-07,Total Passengers,4172971
+2011-08,Total Aircraft Arrivals And Departures,25708
+2011-08,Total Passengers,3855722
+2011-09,Total Aircraft Arrivals And Departures,25513
+2011-09,Total Passengers,3817720
+2011-10,Total Aircraft Arrivals And Departures,26270
+2011-10,Total Passengers,3878788
+2011-11,Total Aircraft Arrivals And Departures,25923
+2011-11,Total Passengers,3890535
+2011-12,Total Aircraft Arrivals And Departures,27654
+2011-12,Total Passengers,4525348
+2012-01,Total Aircraft Arrivals And Departures,27584
+2012-01,Total Passengers,4244834
+2012-02,Total Aircraft Arrivals And Departures,24903
+2012-02,Total Passengers,3770270
+2012-03,Total Aircraft Arrivals And Departures,26981
+2012-03,Total Passengers,4277559
+2012-04,Total Aircraft Arrivals And Departures,26410
+2012-04,Total Passengers,4206420
+2012-05,Total Aircraft Arrivals And Departures,26990
+2012-05,Total Passengers,4089894
+2012-06,Total Aircraft Arrivals And Departures,26662
+2012-06,Total Passengers,4402693
+2012-07,Total Aircraft Arrivals And Departures,27093
+2012-07,Total Passengers,4360693
+2012-08,Total Aircraft Arrivals And Departures,27381
+2012-08,Total Passengers,4276912
+2012-09,Total Aircraft Arrivals And Departures,26526
+2012-09,Total Passengers,4002344
+2012-10,Total Aircraft Arrivals And Departures,27641
+2012-10,Total Passengers,4268532
+2012-11,Total Aircraft Arrivals And Departures,27593
+2012-11,Total Passengers,4365456
+2012-12,Total Aircraft Arrivals And Departures,28958
+2012-12,Total Passengers,4916197
+2013-01,Total Aircraft Arrivals And Departures,28203
+2013-01,Total Passengers,4325530
+2013-02,Total Aircraft Arrivals And Departures,25939
+2013-02,Total Passengers,4117962
+2013-03,Total Aircraft Arrivals And Departures,28423
+2013-03,Total Passengers,4608339
+2013-04,Total Aircraft Arrivals And Departures,27544
+2013-04,Total Passengers,4240461
+2013-05,Total Aircraft Arrivals And Departures,28451
+2013-05,Total Passengers,4281153
+2013-06,Total Aircraft Arrivals And Departures,28283
+2013-06,Total Passengers,4669334
+2013-07,Total Aircraft Arrivals And Departures,28955
+2013-07,Total Passengers,4536572
+2013-08,Total Aircraft Arrivals And Departures,29613
+2013-08,Total Passengers,4678005
+2013-09,Total Aircraft Arrivals And Departures,28441
+2013-09,Total Passengers,4279588
+2013-10,Total Aircraft Arrivals And Departures,29485
+2013-10,Total Passengers,4405289
+2013-11,Total Aircraft Arrivals And Departures,29505
+2013-11,Total Passengers,4464415
+2013-12,Total Aircraft Arrivals And Departures,30923
+2013-12,Total Passengers,5119439
+2014-01,Total Aircraft Arrivals And Departures,30353
+2014-01,Total Passengers,4596764
+2014-02,Total Aircraft Arrivals And Departures,26764
+2014-02,Total Passengers,4109038
+2014-03,Total Aircraft Arrivals And Departures,29141
+2014-03,Total Passengers,4493991
+2014-04,Total Aircraft Arrivals And Departures,28358
+2014-04,Total Passengers,4383872
+2014-05,Total Aircraft Arrivals And Departures,28933
+2014-05,Total Passengers,4368639
+2014-06,Total Aircraft Arrivals And Departures,28130
+2014-06,Total Passengers,4654569
+2014-07,Total Aircraft Arrivals And Departures,28205
+2014-07,Total Passengers,4581591
+2014-08,Total Aircraft Arrivals And Departures,28356
+2014-08,Total Passengers,4649022
+2014-09,Total Aircraft Arrivals And Departures,27024
+2014-09,Total Passengers,4256229
+2014-10,Total Aircraft Arrivals And Departures,28380
+2014-10,Total Passengers,4490180
+2014-11,Total Aircraft Arrivals And Departures,28031
+2014-11,Total Passengers,4415710
+2014-12,Total Aircraft Arrivals And Departures,29711
+2014-12,Total Passengers,5093465
+2015-01,Total Aircraft Arrivals And Departures,28779
+2015-01,Total Passengers,4420122
+2015-02,Total Aircraft Arrivals And Departures,26491
+2015-02,Total Passengers,4121357
+2015-03,Total Aircraft Arrivals And Departures,28793
+2015-03,Total Passengers,4535119
+2015-04,Total Aircraft Arrivals And Departures,28256
+2015-04,Total Passengers,4391381
+2015-05,Total Aircraft Arrivals And Departures,29042
+2015-05,Total Passengers,4480261
+2015-06,Total Aircraft Arrivals And Departures,28531
+2015-06,Total Passengers,4699589
+2015-07,Total Aircraft Arrivals And Departures,29412
+2015-07,Total Passengers,4893574
+2015-08,Total Aircraft Arrivals And Departures,29606
+2015-08,Total Passengers,4955301
+2015-09,Total Aircraft Arrivals And Departures,28464
+2015-09,Total Passengers,4421554
+2015-10,Total Aircraft Arrivals And Departures,29610
+2015-10,Total Passengers,4600789
+2015-11,Total Aircraft Arrivals And Departures,28729
+2015-11,Total Passengers,4636752
+2015-12,Total Aircraft Arrivals And Departures,30621
+2015-12,Total Passengers,5293165
+2016-01,Total Aircraft Arrivals And Departures,30145
+2016-01,Total Passengers,4860156
+2016-02,Total Aircraft Arrivals And Departures,28518
+2016-02,Total Passengers,4602026
+2016-03,Total Aircraft Arrivals And Departures,30125
+2016-03,Total Passengers,4902767
+2016-04,Total Aircraft Arrivals And Departures,29460
+2016-04,Total Passengers,4793662
+2016-05,Total Aircraft Arrivals And Departures,30221
+2016-05,Total Passengers,4781918
+2016-06,Total Aircraft Arrivals And Departures,29345
+2016-06,Total Passengers,4838307
+2016-07,Total Aircraft Arrivals And Departures,30793
+2016-07,Total Passengers,5181108
+2016-08,Total Aircraft Arrivals And Departures,30257
+2016-08,Total Passengers,4923309
+2016-09,Total Aircraft Arrivals And Departures,29330
+2016-09,Total Passengers,4584383
+2016-10,Total Aircraft Arrivals And Departures,30614
+2016-10,Total Passengers,4768937
+2016-11,Total Aircraft Arrivals And Departures,29708
+2016-11,Total Passengers,4784818
+2016-12,Total Aircraft Arrivals And Departures,31974
+2016-12,Total Passengers,5676648
+2017-01,Total Aircraft Arrivals And Departures,31596
+2017-01,Total Passengers,5256301
+2017-02,Total Aircraft Arrivals And Departures,28032
+2017-02,Total Passengers,4669729
+2017-03,Total Aircraft Arrivals And Departures,30916
+2017-03,Total Passengers,5112576
+2017-04,Total Aircraft Arrivals And Departures,30569
+2017-04,Total Passengers,5168548
+2017-05,Total Aircraft Arrivals And Departures,31197
+2017-05,Total Passengers,5003578
+2017-06,Total Aircraft Arrivals And Departures,30915
+2017-06,Total Passengers,5208779
+2017-07,Total Aircraft Arrivals And Departures,31908
+2017-07,Total Passengers,5415734
+2017-08,Total Aircraft Arrivals And Departures,31747
+2017-08,Total Passengers,5265703
+2017-09,Total Aircraft Arrivals And Departures,30492
+2017-09,Total Passengers,4927561
+2017-10,Total Aircraft Arrivals And Departures,31733
+2017-10,Total Passengers,5155327
+2017-11,Total Aircraft Arrivals And Departures,31140
+2017-11,Total Passengers,5173747
+2017-12,Total Aircraft Arrivals And Departures,32956
+2017-12,Total Passengers,5861990
+2018-01,Total Aircraft Arrivals And Departures,32486
+2018-01,Total Passengers,5303639
+2018-02,Total Aircraft Arrivals And Departures,29701
+2018-02,Total Passengers,4932345
+2018-03,Total Aircraft Arrivals And Departures,32585
+2018-03,Total Passengers,5555117
+2018-04,Total Aircraft Arrivals And Departures,31990
+2018-04,Total Passengers,5430745
+2018-05,Total Aircraft Arrivals And Departures,32332
+2018-05,Total Passengers,5294980
+2018-06,Total Aircraft Arrivals And Departures,31874
+2018-06,Total Passengers,5565775
+2018-07,Total Aircraft Arrivals And Departures,32706
+2018-07,Total Passengers,5723094
+2018-08,Total Aircraft Arrivals And Departures,32888
+2018-08,Total Passengers,5682688
+2018-09,Total Aircraft Arrivals And Departures,31395
+2018-09,Total Passengers,5225903
+2018-10,Total Aircraft Arrivals And Departures,32759
+2018-10,Total Passengers,5376234
+2018-11,Total Aircraft Arrivals And Departures,31909
+2018-11,Total Passengers,5408993
+2018-12,Total Aircraft Arrivals And Departures,33417
+2018-12,Total Passengers,6127843
+2019-01,Total Aircraft Arrivals And Departures,32729
+2019-01,Total Passengers,5656076
+2019-02,Total Aircraft Arrivals And Departures,29894
+2019-02,Total Passengers,5131807
+2019-03,Total Aircraft Arrivals And Departures,32371
+2019-03,Total Passengers,5630780
+2019-04,Total Aircraft Arrivals And Departures,31454
+2019-04,Total Passengers,5580503
+2019-05,Total Aircraft Arrivals And Departures,31671
+2019-05,Total Passengers,5407308
+2019-06,Total Aircraft Arrivals And Departures,31391
+2019-06,Total Passengers,5816089
+2019-07,Total Aircraft Arrivals And Departures,32389
+2019-07,Total Passengers,5910782
+2019-08,Total Aircraft Arrivals And Departures,32364
+2019-08,Total Passengers,5900629
+2019-09,Total Aircraft Arrivals And Departures,31179
+2019-09,Total Passengers,5469342
+2019-10,Total Aircraft Arrivals And Departures,31958
+2019-10,Total Passengers,5646643
+2019-11,Total Aircraft Arrivals And Departures,31598
+2019-11,Total Passengers,5718386
+2019-12,Total Aircraft Arrivals And Departures,33344
+2019-12,Total Passengers,6414495
+2020-01,Total Aircraft Arrivals And Departures,33435
+2020-01,Total Passengers,5950940
+2020-02,Total Aircraft Arrivals And Departures,26231
+2020-02,Total Passengers,3446022
+2020-03,Total Aircraft Arrivals And Departures,16223
+2020-03,Total Passengers,1649662
+2020-04,Total Aircraft Arrivals And Departures,3865
+2020-04,Total Passengers,25189
+2020-05,Total Aircraft Arrivals And Departures,4472
+2020-05,Total Passengers,24504
+2020-06,Total Aircraft Arrivals And Departures,4779
+2020-06,Total Passengers,48241
+2020-07,Total Aircraft Arrivals And Departures,5247
+2020-07,Total Passengers,85981

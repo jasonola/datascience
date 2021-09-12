@@ -1,0 +1,193 @@
+---
+title: "Report 2"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+## Import libraries
+
+```{r message=FALSE}
+library(tidyverse)
+library(tidygraph)
+library(readxl)
+library(ggraph)
+```
+
+## Exercise
+
+### Part 1
+
+Let's first load our edges and nodes data with readxl
+
+```{r}
+edges <- read_excel("data/data.xlsx", 
+    sheet = "edges")
+nodes <- read_excel("data/data.xlsx", 
+    sheet = "nodes")
+```
+
+Now we combine that data into a graph format
+
+```{r}
+graph <- tbl_graph(
+  nodes = nodes,
+  edges = edges
+)
+```
+
+Let's plot the graph architecture
+
+```{r}
+graph %>% 
+  ggraph(layout = "igraph", algorithm = "kk")+
+  geom_edge_fan()+
+  geom_node_point()+
+  theme_graph()
+```
+
+### Part 2
+
+We now add the labels to our graph, we use repel to see more names, we mutate a new column first name and extract all that is before the space
+
+```{r}
+graph %N>% 
+  mutate(first_name = str_extract(name, "[^ ]+") %>% str_trim()) %>% 
+  ggraph(layout = "kk")+
+  geom_edge_fan()+
+  geom_node_label(aes(label = first_name))+
+  theme_graph()
+```
+
+### Part 3
+
+Let's first see who has the most edges, first we count the top four id with number of edges with a pivot longer
+
+```{r}
+top4 <- graph %E>%
+  as_tibble() %>% 
+  pivot_longer(c(from,to),values_to = "id") %>% 
+  count(id) %>% 
+  slice_max(n,n = 4, with_ties = TRUE) %>% 
+  pull(id)
+```
+
+Then we create a column with highlight to flag our top4 ids
+
+```{r}
+graph_hl <- graph %E>%
+  mutate(highlight = if_else(from %in% top4 | to %in% top4, 1, 0))
+graph_hl <- graph_hl %N>% 
+  mutate(highlight = if_else(id %in% top4, 1, 0)) 
+```
+
+Finally we plot the results 
+
+```{r}
+graph_hl %>% 
+  ggraph(layout = "igraph", algorithm = "kk") +
+  geom_edge_fan(aes(alpha = highlight),
+                show.legend = FALSE)+
+  geom_node_point(alpha = 0.1)+
+  theme_graph()
+```
+
+```{r}
+top4names <- graph_hl %N>% 
+  filter(highlight == 1) %>% 
+  pull(name) %>% 
+  glue::glue_collapse(", ", last = " and ")
+```
+
+```{r}
+top4counts <- graph %E>%
+  as_tibble() %>% 
+  pivot_longer(c(from,to),values_to = "id") %>% 
+  count(id) %>% 
+  slice_max(n,n = 4) %>% 
+  arrange(id) %>% 
+  pull(n) %>% 
+  glue::glue_collapse(", ", last = " and ")
+```
+
+The 4 names with the most connections are : `r top4names`, with respectively `r top4counts` connections
+
+### Part 4
+
+Let's now add our names and other point shapes
+
+```{r warning=FALSE}
+graph_hl %>% 
+  ggraph(layout = "igraph", algorithm = "kk") +
+  geom_edge_fan(aes(alpha = highlight),
+                show.legend = FALSE)+
+  geom_node_point(alpha = 0.2,
+                  shape = "*",
+                  size = 7)+
+  geom_node_label(aes(label = if_else(highlight == 1, name, NULL)),
+                  repel = TRUE)+
+  theme_graph()
+```
+
+### Part 5
+
+Now let's color the edges and nodes by these 4 central figures, we need to mutate both tables to have color column with desired color
+
+```{r}
+graph_hl <- graph_hl %>% 
+  mutate(color = case_when(id == 34 ~ "darkblue",
+                           id == 1 ~ "darkred",
+                           id == 33 ~ "darkgreen",
+                           id == 3 ~ "purple",
+                           TRUE ~ "gray"))
+graph_hl <- graph_hl %E>%
+  mutate(color = case_when(from == 34 | to == 34 ~ "darkblue",
+                           from == 1 | to == 1 ~ "darkred",
+                           from == 33 | to == 33 ~ "darkgreen",
+                           from == 3 | to == 3 ~ "purple",
+                           TRUE ~ "gray"))
+```
+
+We color the nodes and edges in the plot with scale color identity
+
+```{r warning=FALSE}
+graph_hl %>% 
+  ggraph(layout = "igraph", algorithm = "kk") +
+  geom_edge_fan(aes(color = color),
+                show.legend = FALSE)+
+  geom_node_point(shape = "*",
+                  size = 7,
+                  mapping = aes(color = color))+
+  geom_node_label(aes(label = if_else(highlight == 1, name, NULL)),
+                  repel = TRUE)+
+  scale_edge_color_identity (breaks = graph_hl$color)+
+  scale_color_identity (breaks = graph_hl$color)+
+  theme_graph()
+```
+
+### Part 6
+
+Now we can polish our graph
+
+```{r warning=FALSE}
+graph_hl %>% 
+  ggraph(layout = "igraph", algorithm = "kk") +
+  geom_edge_fan(aes(color = color,
+                    alpha = highlight),
+                width = 0.3,
+                show.legend = FALSE)+
+  geom_node_point(shape = 16,
+                  size = 2,
+                  alpha = 0.5,
+                  mapping = aes(color = color))+
+  geom_node_label(aes(label = if_else(highlight == 1, name, NULL)),
+                  repel = TRUE,
+                  size = 3,
+                  label.padding = 0.15,
+                  label.size = 0.1)+
+  scale_edge_color_identity (breaks = graph_hl$color)+
+  scale_color_identity (breaks = graph_hl$color)+
+  theme_graph()+
+  labs(caption = "Visualisation of an undirected network of social ties in a course classroom")
+```
+

@@ -1,0 +1,298 @@
+---
+title: "Report 1"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+## Import libraries
+
+```{r message=FALSE}
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+```
+
+## Import dataset
+
+```{r message=FALSE}
+data_smi <- read_csv("data/data_smi.csv")
+```
+
+We see that we have 2 columns, price and date. We can already see that the date is in character format so we can already fix this to date format.
+
+```{r}
+smi <- data_smi %>% 
+  mutate(date = dmy(date)) %>% 
+  arrange(date)
+```
+
+## Exercise
+
+### Part 1
+
+Here is a first plot of our whole data
+
+```{r}
+whole_smi_plot <- smi %>% 
+  ggplot()+
+  geom_line(aes(date,price),
+            size = 0.4)+
+  labs(title = "SMI values",
+       subtitle = "From 2015 to 2020",
+       x = "Date",
+       y = "Price in CHF")+
+  theme_minimal()
+whole_smi_plot
+```
+
+### Part 2
+
+Let's now take data since 2019 to produce our data
+
+```{r}
+since_2019_plot <- smi %>% 
+  filter(date > ymd("20190101")) %>% 
+  ggplot()+
+  geom_line(aes(date,price),
+            size = 0.4)+
+  labs(title = "SMI values",
+       subtitle = "From 2019",
+       x = "Date",
+       y = "Price in CHF")+
+  theme_minimal()
+since_2019_plot
+```
+
+We can clearly see that Covid-19 gap towards the end here.
+
+### Part 3
+
+Let's now add a red horizontal line at 8900CHF to our plot
+
+```{r}
+hline_plot <- since_2019_plot+
+  geom_hline(yintercept = 8900, 
+             color = "red",
+             size = 0.3)+
+  labs(subtitle = "From 2019 with line at 8900CHF")
+hline_plot
+```
+
+### Part 4
+
+Let's now use this line to see with plotly when was the last time the SMI value went below 8900 in 2019 and when was the first time in 2020
+
+```{r}
+plotly::ggplotly(hline_plot)
+```
+
+We see here that the last date of 2019 is at 28th of January 2019 and first date of 2020 is at 12th of March 2020
+
+### Part 5
+
+Let's now try to get these values with code
+
+```{r message=FALSE}
+min_max_dates <- smi %>% 
+  filter(price < 8900) %>% 
+  mutate(year = year(date)) %>% 
+  filter(year >= 2019) %>% 
+  group_by(year) %>%  
+  summarise(max_date = max(date),
+            min_date = min(date)) %>%
+  mutate(min_date = lead(min_date)) %>% 
+  head(1)
+```
+
+Let's use a stamp to format our date in the inline
+
+```{r message=FALSE}
+sf <- stamp("Jan 13th 2020","%m %d %y")
+```
+
+We indeed get our previous dates : `r sf(min_max_dates$max_date)` and on `r sf(min_max_dates$min_date)`
+
+### Part 6
+
+Let's get how much time elapsed between the 2 dates 
+
+```{r}
+n_days <- as.numeric(min_max_dates$min_date - min_max_dates$max_date)
+```
+
+There has been `r n_days` days
+
+### Part 7
+
+We can also see mean values by week 
+
+```{r warning=FALSE}
+data_smi_wkly <- smi %>% 
+  mutate(week = yearweek(date)) %>% 
+  filter(week > as_date("2018-12-31"))
+```
+
+Let's now plot this data
+
+```{r warning=FALSE}
+data_smi_wkly %>% 
+    group_by(week) %>% 
+    summarise(mean_price = mean(price)) %>% 
+    ggplot()+
+    geom_point(aes(week,mean_price),
+              color = "blue",
+              size = 0.8)+
+    labs(title = "SMI weekly price mean",
+        subtitle = "From 2019",
+        x = "Week",
+        y = "Mean price in CHF")+
+    theme_minimal()
+```
+
+### Part 8
+
+Here we use 2 data together to plot SMI values with the mean on top
+
+```{r}
+data_smi_mean_wkly <- data_smi_wkly %>% 
+  group_by(week) %>% 
+  mutate(mean_price = mean(price)) %>% 
+  distinct(mean_price)
+```
+
+```{r}
+data_smi_wkly %>% 
+  ggplot()+
+  geom_point(aes(week,price),
+             size = 0.3)+
+  geom_point(data = data_smi_mean_wkly,
+             aes(week,mean_price),
+             color = "blue",
+             alpha = 0.8)+
+  labs(title = "Weekly SMI values with mean ",
+       subtitle = "Since January 2019",
+       x = "Week",
+       y = "Price")+
+  theme_minimal()
+```
+
+### Part 9
+
+Let's do the same but by months this time
+
+```{r warning=FALSE}
+data_smi_mthly <- smi %>% 
+  mutate(month = yearmonth(date)) %>% 
+  filter(month > as_date("2018-12-31"))
+```
+
+```{r}
+data_smi_mean_mthly <- data_smi_mthly %>% 
+  group_by(month) %>% 
+  mutate(mean_price = mean(price)) %>% 
+  distinct(mean_price)
+```
+
+```{r}
+data_smi_mthly %>% 
+  ggplot()+
+  geom_point(data = data_smi_mean_mthly,
+             aes(month,mean_price),
+             color = "blue",
+             alpha = 0.8)+
+  labs(title = "SMI monthly price mean ",
+       subtitle = "Since January 2019",
+       x = "Month",
+       y = "Mean price in CHF")+
+  theme_minimal()
+```
+
+### Part 10
+
+And now we use 2 part data again but by months
+
+```{r}
+data_smi_mthly %>% 
+  ggplot()+
+  geom_point(aes(month,price),
+             size = 0.3)+
+  geom_point(data = data_smi_mean_mthly,
+             aes(month,mean_price),
+             color = "blue",
+             alpha = 0.8)+
+  labs(title = "Monthly SMI values with mean ",
+       subtitle = "Since January 2019",
+       x = "Month",
+       y = "Price")+
+  theme_minimal()
+```
+
+### Part 11
+
+Let's see how boxplots look like with this data, first we have to factor month so it goes in the boxplot.
+
+```{r}
+data_smi_mthly %>% 
+  mutate(month = yearmonth(month)) %>% 
+  ggplot(aes(group = month))+
+  geom_boxplot(aes(month,price),
+               size = 0.3,
+               outlier.size = 0.3)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(title = "Boxplot distribution of price per month",
+       subtitle = "since 2019",
+       x = "Month",
+       y = "Price in CHF")
+  
+```
+
+We see with these box plots how unstable the prices were during the first months of Covid-19.
+
+### Part 12
+
+For this part I will use the Changi Airport (Singapour) CSV dataset on departures, arrivals and number of passengers monthly since 1980. I'm interested in the evolution of the number of passengers and when they travel in the year. The data can be found at : https://data.gov.sg/dataset/civil-aircraft-arrivals-departures-passengers-and-mail-changi-airport-monthly?resource_id=1a08ce4d-aafc-4fee-afb7-e8f4c3a41d80
+
+Let's load the data and filter for total passengers
+
+```{r message=FALSE}
+passengers <- read_csv("data/passengers.csv") %>% 
+  filter(level_1 == "Total Passengers") %>% 
+  mutate(month = ym(month))
+```
+
+When do people tend to go in vacation in Singapour ?
+
+```{r}
+passengers %>% 
+  ggplot()+
+  geom_line(aes(month,value/1000),
+            size = 0.4)+
+  labs(title = "Changi Airport trafic",
+       subtitle = "Since 1980",
+       x = "Year",
+       y = "Number of passengers")+
+  theme_minimal()
+```
+
+We can already see some periodic trends, with a big low in trafic around 2003 probably due to SARS epidemic in the region and even bigger low in 2020 to Covid-19. A little low as well in 2009 with the subprimes crisis.
+
+Let's zoom in between 2015 and 2020.
+
+```{r}
+passengers %>% 
+  filter(month > ymd("2014-12-31")) %>% 
+  ggplot()+
+  geom_line(aes(month,value/1000),
+            size = 0.4)+
+  labs(title = "Changi Airport trafic",
+       subtitle = "Since 2015",
+       x = "Year",
+       y = "Number of passengers")+
+  theme_minimal()
+```
+
+We see indeed that the highs are periodical and in 3 points : easter, summer vacations and the highest peak at christmas/new year.
+
+

@@ -1,0 +1,6 @@
+
+Data set from "Ames, Iowa: Alternative to the Boston Housing Data as an
+End of Semester Regression Project" by Dean De Cock - https://ww2.amstat.org/publications/jse/v19n3/decock.pdf
+
+Data documentation: https://ww2.amstat.org/publications/jse/v19n3/decock/DataDocumentation.txt
+

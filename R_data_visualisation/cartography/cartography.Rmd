@@ -1,0 +1,411 @@
+---
+title: "Report 3"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+
+## Import libraries
+```{r message=FALSE}
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(lubridate)
+library(ggrepel)
+library(sf)
+```
+
+## Exercises
+
+### Question 1
+
+Let's first load the data
+
+```{r message=FALSE}
+geg_raw <- read_excel("data/TESEM0601573030089446.xlsx", 
+    sheet = "Sheet 1", skip = 8) 
+```
+
+Then we clean the data by removing unnecessary information and NA rows, we also pivot the table and change Germany name
+
+```{r warning=FALSE}
+geg_clean <- geg_raw %>% 
+  slice(5:n()) %>% head(38) %>% 
+  rename(country = time) %>% 
+  select(-matches("\\.\\.\\.")) %>% 
+  mutate_at(vars(-country),as.numeric) %>% 
+  pivot_longer(cols = -country, 
+               names_to = "year", 
+               values_to = "gender_employment_gap") %>% 
+  mutate(year = parse_date(year,"%Y")) %>% 
+  drop_na() %>% 
+  mutate(country = if_else(
+    country == "Germany (until 1990 former territory of the FRG)",
+    "Germany", country))
+```
+
+We split our data into 2 parts so we can plot each one
+
+```{r}
+geg_mean_over_15 <- geg_clean %>% 
+  group_by(country) %>% 
+  mutate(mean_geg = mean(gender_employment_gap)) %>% 
+  filter(mean_geg > 14.4)
+
+geg_mean_under_15 <- geg_clean %>% 
+  group_by(country) %>% 
+  mutate(mean_geg = mean(gender_employment_gap)) %>% 
+  filter(mean_geg <= 14.4)
+```
+
+Now we plot
+
+```{r warning=FALSE}
+geg_plot <- geg_mean_over_15 %>% 
+  ggplot() +
+  geom_line(aes(year,
+                gender_employment_gap,
+                color = country),
+            show.legend = FALSE,
+            size = 0.4)+
+  geom_text_repel(data = geg_mean_over_15 %>% filter(year == max(year)),
+                  aes(label = country,
+                      x = year,
+                      y = gender_employment_gap,
+                      color = country),
+                  size = 2.5,
+                  show.legend = FALSE)+
+  scale_color_manual(values = c("blue","red","brown","darkgreen",
+                                "darksalmon","darkblue","darkred",
+                                "magenta","black","pink","purple","orange"))+
+  geom_line(data = geg_mean_under_15,
+            aes(year,
+                gender_employment_gap,
+                fill = country),
+            color = "gray",
+            alpha = 0.3,
+            size = 0.5)+
+  labs(title = "Gender employment gap",
+       subtitle = "Annual difference between the employment rates of mean",
+       x = "Year",
+       y = "Percentage of total population",
+       caption = "Source : Eurostat")+
+  theme_minimal()
+
+geg_plot
+```
+
+### Question 2
+
+Let's highlight a country, we choose Switzerland, we first filter what we need, then we add it on our plot
+
+```{r}
+swiss_geg <- geg_clean %>% 
+  filter(country == "Switzerland")
+```
+
+
+```{r warning=FALSE}
+geg_clean %>% 
+  filter(year >= as_date("2010-01-01")) %>% 
+  ggplot() +
+  geom_line(aes(year,
+                gender_employment_gap,
+                fill = country),
+            size = 0.2,
+            color = "grey")+
+  geom_line(data = swiss_geg,
+            aes(year,
+                gender_employment_gap),
+            size = 0.5,
+            color = "blue")+
+  labs(title = "Swiss gender employment gap",
+       subtitle = "Annual difference between the employment rates of mean since 2010",
+       x = "Year",
+       y = "Percentage of total population",
+       caption = "Source : Eurostat")+
+  theme_minimal()
+```
+
+### Question 3
+
+Let's now plot the data on a map, first we load our shape file
+
+```{r}
+world <- st_read("data/naturalearth/ne_110m_admin_0_countries.shp")
+```
+
+Now we create the bbox limits
+
+```{r}
+xlim <- c(-22,44)
+ylim <- c(35,70)
+```
+
+Then we join the world shape with the data
+
+```{r}
+world_data <- world %>% 
+  left_join(geg_clean, c("SOVEREIGNT" = "country")) 
+```
+
+Finally we plot both
+
+```{r}
+ggplot()+
+  geom_sf(data = world_data,
+          mapping = aes(fill = gender_employment_gap),
+          size = 0.1)+
+  coord_sf(xlim = xlim,
+           ylim = ylim)+
+  scale_fill_continuous(na.value = "lightgray")+
+  theme_void()+
+  labs(title = "Gender employment gap in EU",
+       subtitle = "Annual difference between the employment rate of men and women aged 20 - 64",
+       caption = "Source : Eurostat")+
+  theme(legend.title = element_blank())
+```
+
+### Question 4
+
+Let's now make a quantile column to use in our map, first we create the quantiles
+
+```{r}
+quantiles <- world_data %>% 
+  pull(gender_employment_gap) %>% 
+  quantile(probs = c(0,0.25,0.5,0.75,1),
+           na.rm = TRUE)
+```
+
+Then from these quantiles we create the labels
+
+```{r}
+labels <- tibble(
+  lab1 = quantiles,
+  lab2 = lead(lab1)
+) %>% 
+  slice(1:n()-1) %>% 
+  mutate(lab2 = paste0(lab2, "%")) %>% 
+  mutate(label = paste(lab1,lab2, sep = " to "))
+```
+
+We now put these in our data
+
+```{r}
+world_data <- world_data %>% 
+  mutate(percentages = cut(gender_employment_gap,
+                           breaks = quantiles,
+                           labels = labels$label))
+```
+
+And we plot
+
+```{r}
+ggplot()+
+  geom_sf(data = world_data,
+          mapping = aes(fill = percentages),
+          size = 0.1)+
+  coord_sf(xlim = xlim,
+           ylim = ylim)+
+  viridis::scale_fill_viridis(discrete = TRUE,
+                              option = 8,
+                              direction = -1,
+                              na.value = "lightgray",
+                              begin = 0.2,
+                              end = 0.8)+
+  theme_void()+
+  labs(title = "Gender employment gap in EU",
+       subtitle = "Annual difference between the employment rate of men and women aged 20 - 64",
+       caption = "Source : Eurostat")+
+  theme(legend.title = element_blank())
+```
+
+### Question 5
+
+Let's now annotate our map
+
+```{r}
+world_data <- world_data %>% 
+  group_by(NAME) %>% 
+  mutate(mean_geg = round(mean(gender_employment_gap),0)) %>% 
+  ungroup()
+```
+
+
+```{r warning=FALSE}
+world_data %>% 
+  ggplot()+
+    geom_sf(aes(fill = percentages),
+            size = 0.1)+
+    coord_sf(xlim = xlim,
+             ylim = ylim)+
+    viridis::scale_fill_viridis(discrete = TRUE,
+                                option = 8,
+                                direction = -1,
+                                na.value = "lightgray",
+                                begin = 0.2,
+                                end = 0.8)+
+    geom_sf_text(aes(label = mean_geg),
+                 color = "gold",
+                 size = 3,
+                 na.rm = TRUE)+
+    theme_void()+
+    labs(title = "Gender employment gap in EU",
+         subtitle = "Annual difference between the employment rate of men and women aged 20 - 64",
+         caption = "Source : Eurostat")+
+    theme(legend.title = element_blank())
+```
+
+### Question 6
+
+Let's now separate in 2 different times with facets, we filter our desired years first
+
+```{r}
+world_data %>% 
+  filter(year %in% c(ymd("2014-01-01"),ymd("2018-01-01"))) %>% 
+  mutate(year = year(year)) %>% 
+  ggplot()+
+  geom_sf(aes(fill = percentages),
+          size = 0.1)+
+  coord_sf(xlim = xlim,
+           ylim = ylim)+
+  viridis::scale_fill_viridis(discrete = TRUE,
+                              option = 8,
+                              direction = -1,
+                              na.value = "lightgray",
+                              begin = 0.2,
+                              end = 0.8)+
+  facet_wrap(vars(year))+
+  theme_void()+
+  labs(title = " Gender employment gap in EU",
+       subtitle = " Difference between 2014 and 2018 \n",
+       caption = "Source : Eurostat")+
+  theme(legend.title = element_blank())
+```
+
+### Question 7
+
+Let's now highlight the difference between 2014 and 2018, we first need to get the difference between 2 different years in another table because we have to do some pivot wider.
+
+```{r}
+diff_world <- world_data %>% 
+  filter(year %in% c(ymd("2014-01-01"),ymd("2018-01-01"))) %>% 
+  mutate(year = year(year)) %>% 
+  select(year,gender_employment_gap,NAME) %>% 
+  as_tibble() %>% 
+  pivot_wider(names_from = year, values_from = gender_employment_gap, names_prefix = "y_") %>% 
+  mutate(diff = y_2018 - y_2014) %>% 
+  select(NAME,diff)
+```
+
+Then we join our new column to the world data
+
+```{r}
+world_data <- world_data %>% 
+  left_join(diff_world, by = "NAME")
+```
+
+We again do some quantile operation on the diff column
+
+```{r}
+diff_quantiles <- world_data %>%
+  pull(diff) %>% 
+  quantile(probs = c(0,0.25,0.5,0.75,1),
+           na.rm = TRUE)
+```
+
+```{r}
+diff_labels <- tibble(
+  lab1 = diff_quantiles,
+  lab2 = lead(lab1)
+) %>% 
+  slice(1:n()-1) %>% 
+  mutate(lab2 = paste0(round(lab2,0), "%")) %>% 
+  mutate(label = paste(round(lab1,0),lab2, sep = " to "))
+```
+
+```{r}
+world_data <- world_data %>% 
+  mutate(diff_percentages = cut(diff,
+                           breaks = diff_quantiles,
+                           labels = diff_labels$label))
+```
+
+Finally we plot the results with a diverging palette
+
+```{r}
+ggplot()+
+  geom_sf(data = world_data,
+          mapping = aes(fill = diff_percentages),
+          size = 0.1)+
+  coord_sf(xlim = xlim,
+           ylim = ylim)+
+  scale_fill_brewer(palette = "PuOr", direction = -1)+
+  theme_void()+
+  labs(title = "Gender employment gap in EU",
+       subtitle = "Difference between 2014 and 2018",
+       caption = "Source : Eurostat")+
+  theme(legend.title = element_blank())
+```
+
+### Question 8
+
+Let's change projections now
+
+```{r}
+esri_world_data <- st_transform(world_data, crs = 'ESRI:54030')
+```
+
+We have to change our border box in order to plot our Europe area
+
+```{r}
+xlim_rob <- c(-1733617, 3443854)
+ylim_rob <- c(3765900,7518072)
+```
+
+Now we can plot our map
+
+```{r}
+ggplot()+
+  geom_sf(data = esri_world_data,
+          mapping = aes(fill = diff_percentages),
+          size = 0.1)+
+  coord_sf(xlim = xlim_rob,
+           ylim = ylim_rob)+
+  scale_fill_brewer(palette = "PuOr", direction = -1)+
+  theme_void()+
+  labs(title = "Gender employment gap in EU",
+       subtitle = "Difference between 2014 and 2018",
+       caption = "Source : Eurostat")+
+  theme(legend.title = element_blank())
+```
+
+### Question 9
+
+```{r}
+top5_hi <- world_data %>% 
+  filter(year == "2018-01-01") %>% 
+  slice_max(order_by = gender_employment_gap, n = 5) %>% 
+  pull(NAME) %>% 
+  glue::glue_collapse(", ", last = " and ")
+
+top5_low <- world_data %>% 
+  filter(year == "2018-01-01") %>% 
+  slice_min(order_by = gender_employment_gap, n = 5) %>% 
+  pull(NAME) %>% 
+  glue::glue_collapse(", ", last = " and ")
+
+top5_low_diffs <- world_data %>% 
+  filter(year == "2018-01-01") %>% 
+  slice_min(order_by = diff, n = 5) %>% 
+  pull(NAME) %>%
+  glue::glue_collapse(", ", last = " and ")
+```
+
+* The top 5 countries with the highest gender employment gap are : `r top5_hi`
+
+* The top 5 countries with the lowest gender employment gap are : `r top5_low`
+
+* The top 5 countries which the employment gap decreased the most in percentage points are : `r top5_low_diffs`
+
