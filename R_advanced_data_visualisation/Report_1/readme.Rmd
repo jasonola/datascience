@@ -1,0 +1,492 @@
+---
+title: "Report 1"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+## Import packages
+
+```{r message=FALSE}
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+```
+
+## Part 1 : Import dataset
+
+```{r message=FALSE}
+cheese_data <- read_csv("data/cheese_data.csv")
+
+cheese_data_f1 <- cheese_data %>% 
+  filter(factory == "f1")
+
+cheese_data_f2 <- cheese_data %>% 
+  filter(factory == "f2")
+```
+
+## Part 2 : Clean the data (manage missing values)
+
+```{r}
+sum_na <- cheese_data %>% 
+  na_if(0) %>% 
+  is.na() %>% 
+  sum()
+```
+
+1. There are `r sum_na` values to be replaced
+
+```{r}
+to_discard <- cheese_data %>% 
+  na_if(0) %>% 
+  is.na() %>% 
+  as_tibble() %>% 
+  mutate(sumrow = rowSums(.)) %>% 
+  filter(sumrow == 2) %>% 
+  nrow()
+```
+
+2. There are `r to_discard` time points to be discarded
+
+```{r}
+index_replace <- cheese_data %>% 
+  na_if(0) %>% 
+  is.na() %>% 
+  as_tibble() %>% 
+  mutate(sumrow = rowSums(.),
+         rownum = row_number()) %>% 
+  filter(sumrow == 1) %>% 
+  pull(rownum)
+
+index_remove <- cheese_data %>% 
+  na_if(0) %>% 
+  is.na() %>% 
+  as_tibble() %>% 
+  mutate(sumrow = rowSums(.),
+         rownum = row_number()) %>% 
+  filter(sumrow == 2) %>% 
+  pull(rownum)
+```
+
+3. Remove/replace missing values according to manager
+
+```{r}
+col_interested <- 4:8
+```
+
+```{r message=FALSE, warning=FALSE}
+cheese_data_nona <- cheese_data %>% 
+  mutate(rownum = row_number()) %>% 
+  filter(!rownum %in% index_remove) %>% #remove rows with 2 values
+  na_if(0) %>% 
+  mutate(meanrow = rowMeans(.[col_interested], na.rm = T) %>% round(1)) %>% 
+  rowwise() %>% 
+  mutate_at(vars(col_interested),# choose columns of interest
+            funs(if_else(is.na(.),meanrow,.)))#replace by meanrow if value is na
+```
+
+## Part 3 : Clean the data (manage unexpected values)
+
+```{r message=FALSE}
+number_unexpected <- cheese_data_nona %>% 
+  filter_at(vars(col_interested),
+            any_vars(. >= 65 |. <= 15)) %>% 
+  select(col_interested) %>% 
+  rowwise() %>% 
+  summarise(sum(. >= 65|. <= 15)) %>% 
+  pull()
+```
+
+1. There are `r number_unexpected` unexpected values in the data.  
+Like before I would just replace the unexpected value if there are only 1 by row.  
+If there are more by row I would just discard them.
+
+```{r}
+cheese_data_nona_nounexp <- cheese_data_nona %>% 
+  mutate_at(vars(col_interested),
+            #replace unexpected data with mean of m1,m2,m3,m4,m5
+            funs(if_else(.>=65,mean(m1,m2,m3,m4,m5),.))) 
+```
+
+## Part 4: Compute monitoring statistics for factory f1
+
+1. Storing xbar and range
+
+```{r}
+spc_data_f1 <- cheese_data_nona_nounexp %>% 
+  filter(factory == "f1") %>% 
+  ungroup() %>% 
+  mutate(xbar = rowMeans(.[col_interested])) %>% #compute new mean column
+  rowwise() %>% 
+  mutate(range = max(m1,m2,m3,m4,m5)-min(m1,m2,m3,m4,m5)) %>% 
+  select(-c(rownum,meanrow))
+```
+
+```{r}
+f1_rows <- spc_data_f1 %>% 
+  nrow()
+```
+
+2. spc_data_f1 has `r f1_rows` rows
+
+```{r}
+avg_xbar <- spc_data_f1 %>% 
+  ungroup() %>% 
+  summarise(mean(xbar)) %>% 
+  pull()
+
+avg_range <- spc_data_f1 %>% 
+  ungroup() %>% 
+  summarise(mean(range)) %>% 
+  pull()
+```
+
+3. Average of xbar : `r round(avg_xbar,1)`, and average of range : `r round(avg_range,1)`
+
+## Part 5 : Build Shewhart control charts for factory f1
+
+```{r message=FALSE}
+constants <- read_csv("data/XbarR_constants.csv")
+```
+
+```{r}
+d3 <- constants %>% 
+  filter(n == 5) %>% 
+  pull(D3)
+
+d4 <- constants %>% 
+  filter(n == 5) %>% 
+  pull(D4)
+```
+
+
+```{r}
+lcl <- constants %>% 
+  mutate(lcl = d3*avg_range) %>% 
+  summarise(lcl = mean(lcl)) %>% 
+  pull()
+
+ucl <- constants %>% 
+  mutate(ucl = d4*avg_range) %>% 
+  summarise(ucl = mean(ucl)) %>% 
+  pull()
+```
+
+```{r}
+r_chart <- spc_data_f1 %>% 
+  ggplot(aes(timepoint, range))+
+  geom_line()+
+  labs(title = "Factory 1 R chart",
+       x = "Timepoint",
+       y = "Range")+
+  theme_minimal()
+r_chart
+```
+
+```{r}
+r_chart <- r_chart+
+  geom_hline(yintercept = c(lcl,ucl),
+             color = "red")+
+  labs(subtitle = "1. With control limits")
+r_chart
+```
+```{r}
+r_chart <- r_chart +
+  geom_hline(yintercept = avg_range,
+             linetype = "dashed")+
+  labs(subtitle = "2. With control limits and average range")
+r_chart
+```
+```{r}
+lcl_xbar <- constants %>% 
+  mutate(lclxbar = avg_xbar - A2 * avg_range) %>% 
+  summarise(lclxbar = mean(lclxbar)) %>% 
+  pull()
+
+ucl_xbar <- constants %>% 
+  mutate(uclxbar = avg_xbar + A2 * avg_range) %>% 
+  summarise(uclxbar = mean(uclxbar)) %>% 
+  pull()
+```
+
+
+```{r}
+x_bar_chart <- spc_data_f1 %>% 
+  ggplot(aes(timepoint,xbar))+
+  geom_line()+
+  geom_hline(yintercept = c(ucl_xbar,lcl_xbar),
+             color = "red")+
+  geom_hline(yintercept = avg_xbar,
+             linetype = "dashed")+
+  labs(title = "Factory 1 X bar chart",
+       subtitle = "With control limits and average Xbar",
+       x = "Timepoint",
+       y = "Xbar")+
+  theme_minimal()
+x_bar_chart
+```
+
+## Part 6: Highlight special causes of variations
+
+```{r}
+out_of_bounds <- spc_data_f1 %>% 
+  filter(xbar > ucl_xbar | xbar < lcl_xbar) # filter out of control limits
+```
+
+```{r}
+all_lower_ref_value <- function(x) all(x<avg_xbar) # function used with slider
+all_above_ref_value <- function(x) all(x>avg_xbar)
+```
+
+```{r}
+num_lower <- slider::slide_lgl(.x = spc_data_f1$xbar, 
+                  .f = all_lower_ref_value, 
+                  .after = 9) %>% 
+  sum()
+
+num_above <- slider::slide_lgl(.x = spc_data_f1$xbar, 
+                  .f = all_above_ref_value, 
+                  .after = 9,
+                  # complete because there is only 1 and it is last
+                  .complete = T) %>% 
+  sum()
+```
+
+There are `r num_lower` values that have 10 consecutive values below xbar
+There are `r num_above` values that have 10 consecutive values above xbar
+
+```{r}
+points_with_10_more <- spc_data_f1 %>% 
+  ungroup() %>% 
+  # check all values to see if they have 9 more values on threshold (avg_bar)
+  mutate(consec = slider::slide_lgl(.x = xbar, 
+                     # we use lower only because there are no values above
+                                    .f = all_lower_ref_value, 
+                                    .after = 9)) %>% 
+  filter(consec) %>% #filter these values in
+  pull(timepoint) # pull the values
+```
+
+```{r}
+consecutive_times <- (head(points_with_10_more,1)):
+                     (tail(points_with_10_more,1)+9)
+# get the last timepoint then substract by length
+```
+
+```{r}
+consecutive_points <- spc_data_f1 %>% 
+  filter(timepoint %in% consecutive_times)
+```
+
+```{r}
+x_bar_chart+
+  geom_point(data = out_of_bounds, 
+             mapping = aes(x = timepoint, y = xbar),
+             color = "red",
+             shape = 8)+
+  geom_point(data = consecutive_points,
+             mapping = aes(x = timepoint, y = xbar),
+             color = "red",
+             shape = 21,
+             size = 4)
+```
+ 
+## Part 7 : Build Shewhart control charts for factory f2
+
+```{r}
+spc_data_f2 <- cheese_data_nona_nounexp %>% 
+  filter(factory == "f2") %>% 
+  ungroup() %>% 
+  mutate(xbar = rowMeans(.[col_interested])) %>% #compute new mean column
+  rowwise() %>% 
+  mutate(range = max(m1,m2,m3,m4,m5)-min(m1,m2,m3,m4,m5)) %>% 
+  select(-c(rownum,meanrow))
+```
+
+```{r}
+avg_xbar2 <- spc_data_f2 %>% 
+  ungroup() %>% 
+  summarise(mean(xbar)) %>% 
+  pull()
+
+avg_range2 <- spc_data_f2 %>% 
+  ungroup() %>% 
+  summarise(mean(range)) %>% 
+  pull()
+```
+
+```{r}
+lcl2 <- constants %>% 
+  mutate(lcl = d3*avg_range2) %>% 
+  summarise(lcl = mean(lcl)) %>% 
+  pull()
+
+ucl2 <- constants %>% 
+  mutate(ucl = d4*avg_range2) %>% 
+  summarise(ucl = mean(ucl)) %>% 
+  pull()
+```
+
+```{r}
+r_chart2 <- spc_data_f2 %>% 
+  ggplot(aes(timepoint, range))+
+  geom_line()+
+  labs(title = "Factory 2 R chart",
+       x = "Timepoint",
+       y = "Range")+
+  theme_minimal()
+r_chart2
+```
+
+```{r}
+r_chart2 <- r_chart2+
+  geom_hline(yintercept = c(lcl2,ucl2),
+             color = "red")+
+  geom_hline(yintercept = avg_range2,
+             linetype = "dashed")+
+  labs(subtitle = "With control limits and mean range")
+r_chart2
+```
+```{r}
+lcl_xbar2 <- constants %>% 
+  mutate(lclxbar = avg_xbar2 - A2 * avg_range2) %>% 
+  summarise(lclxbar = mean(lclxbar)) %>% 
+  pull()
+
+ucl_xbar2 <- constants %>% 
+  mutate(uclxbar = avg_xbar2 + A2 * avg_range2) %>% 
+  summarise(uclxbar = mean(uclxbar)) %>% 
+  pull()
+```
+
+```{r}
+x_bar_chart2 <- spc_data_f2 %>% 
+  ggplot(aes(timepoint,xbar))+
+  geom_line()+
+  geom_hline(yintercept = c(ucl_xbar2,lcl_xbar2),
+             color = "red")+
+  geom_hline(yintercept = avg_xbar2,
+             linetype = "dashed")+
+  labs(title = "Factory 2 X bar chart",
+       subtitle = "With control limits and average Xbar",
+       x = "Timepoint",
+       y = "Xbar")+
+  theme_minimal()
+x_bar_chart2
+```
+```{r}
+out_of_bounds2 <- spc_data_f2 %>% 
+  filter(xbar > ucl_xbar2 | xbar < lcl_xbar2)
+```
+
+```{r}
+all_lower_ref_value2 <- function(x) all(x<avg_xbar2) 
+all_above_ref_value2 <- function(x) all(x>avg_xbar2)
+```
+
+```{r}
+num_lower2 <- slider::slide_lgl(.x = spc_data_f2$xbar, 
+                  .f = all_lower_ref_value2, 
+                  .after = 9) %>% 
+  sum()
+
+num_above2 <- slider::slide_lgl(.x = spc_data_f2$xbar, 
+                  .f = all_above_ref_value2, 
+                  .after = 9,
+                  .complete = T) %>% 
+  sum()
+```
+
+```{r}
+points_with_10_more2 <- spc_data_f2 %>% 
+  ungroup() %>% 
+  # check all values to see if they have 9 more values on threshold (avg_bar)
+  mutate(consec = slider::slide_lgl(.x = xbar, 
+                     # we use lower only because there are no values above
+                                    .f = all_lower_ref_value2, 
+                                    .after = 9)) %>% 
+  filter(consec) %>% #filter these values in
+  pull(timepoint) # pull the values
+```
+
+```{r}
+first_points <- points_with_10_more2[1:6]
+last_points <- points_with_10_more2[7:length(points_with_10_more2)]
+```
+
+```{r}
+consecutive_times2 <- (head(first_points,1)):
+                     (tail(first_points,1)+9)
+
+consecutive_times3 <- (head(last_points,1)):
+                     (tail(last_points,1)+9) 
+```
+
+```{r}
+consecutive_points2 <- spc_data_f2 %>% 
+  filter(timepoint %in% consecutive_times2)
+
+consecutive_points3 <- spc_data_f2 %>% 
+  filter(timepoint %in% consecutive_times3)
+```
+
+```{r}
+x_bar_chart2+
+  geom_point(data = out_of_bounds2, 
+             mapping = aes(x = timepoint, y = xbar),
+             color = "red",
+             shape = 8)+
+  geom_point(data = consecutive_points2,
+             mapping = aes(x = timepoint, y = xbar),
+             color = "red",
+             shape = 21,
+             size = 4)+
+  geom_point(data = consecutive_points3,
+             mapping = aes(x = timepoint, y = xbar),
+             color = "red",
+             shape = 21,
+             size = 4)
+```
+3. The 2 factory do not have the same pattern at all even though they have almost the same mean. Factory one is more stable whereas factory 2 is spread further away from the mean.
+
+## Part 8 : Redefine monitoring data for factory f2
+
+```{r}
+spc_data_f2_week <- spc_data_f2 %>% 
+  ungroup() %>% 
+  group_by(week) %>% 
+  summarise(avg_week = mean(xbar), 
+            range_in_week = mean(range)) %>% 
+  mutate(moving_range = abs(range_in_week-lag(range_in_week)))
+```
+
+```{r}
+M <- spc_data_f2_week %>% 
+  summarise(mean(avg_week)) %>% 
+  pull()
+
+MR_bar <- spc_data_f2_week %>% 
+  summarise(mean(moving_range, na.rm = T)) %>% 
+  pull()
+```
+
+```{r}
+lcl_week <- M - 2.66 * MR_bar
+ucl_week <- M + 2.66 * MR_bar
+```
+
+```{r}
+spc_data_f2_week %>% 
+  ggplot(aes(week, avg_week))+
+  geom_line()+
+  geom_hline(yintercept = c(lcl_week,ucl_week),
+             color = "red")+
+  geom_hline(yintercept = M,
+             linetype = "dashed")+
+  labs(title = "Control chart for factory 2",
+       subtitle = "By week",
+       x = "Week",
+       y = "Average value")+
+  theme_minimal()
+```
+

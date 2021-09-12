@@ -1,0 +1,324 @@
+---
+title: "A story on volcanoes"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::readthedown
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(sf)
+library(magick)
+library(DT)
+```
+
+## Wow a large volcano !
+
+```{r echo=FALSE}
+image_read("data/img/guatemala-central-america-latin-america-volcano-erupting.jpeg") %>% 
+  image_scale("1580")
+```
+
+```{r include=FALSE}
+#load data but it has a github download limit so I save it below in the comments
+#volcano_data <- tidytuesdayR::tt_load("2020-05-12")
+```
+
+```{r include=FALSE}
+# eruptions <- volcano_data$eruptions
+# events <- volcano_data$events
+# sulfur <- volcano_data$sulfur
+# tree_rings <- volcano_data$tree_rings
+# volcano <- volcano_data$volcano
+
+```
+
+```{r include=FALSE}
+# eruptions %>% write_csv("data/eruptions")
+# events %>% write_csv("data/events")
+# tree_rings %>% write_csv("data/tree_rings")
+# sulfur %>% write_csv("data/sulfur")
+# volcano %>% write_csv("data/volcano")
+
+```
+
+```{r include=FALSE}
+eruptions <- read_csv("data/eruptions")
+events <- read_csv("data/events")
+sulfur <- read_csv("data/sulfur")
+tree_rings <- read_csv("data/tree_rings")
+volcano <- read_csv("data/volcano")%>% 
+  mutate(primary_volcano_type = str_replace_all(primary_volcano_type,
+                              c("Caldera\\(s\\)" = "Caldera",
+                                "Lava cone\\(es\\)" = "Lava cone",
+                                "Stratovolcano\\(es\\)" = "Stratovolcano",
+                                "Shield\\(s\\)" = "Shield",
+                                "Pyroclastic cone\\(s\\)" = "Pyroclastic cone",
+                                "Stratovolcano\\?" = "Stratovolcano",
+                                "Complex\\(es\\)" = "Complex",
+                                "Lava cone\\(s\\)" = "Lava cone",
+                                "Lava dome\\(s\\)" = "Lava dome",
+                                "Tuff cone\\(s\\)" = "Tuff cone")))
+```
+
+
+```{r include=FALSE}
+large_volcanoes <- volcano %>% 
+  left_join(eruptions,
+            by = c("volcano_number", "latitude", "longitude","volcano_name")) %>% 
+  filter(vei >= 5)
+```
+
+
+```{r include=FALSE}
+lv_locations <- large_volcanoes %>% 
+  st_as_sf(coords = c("longitude","latitude"), crs = 4326)
+```
+
+```{r include=FALSE}
+world <- st_read("data/world/ne_110m_admin_0_map_units.shp")
+```
+
+```{r include=FALSE}
+color1 = "#211103"
+color2 = "#9F2042"
+```
+
+## But... Where are they ?!
+
+### Let's see where the large volcanoes are located !
+
+```{r echo=FALSE}
+world %>% filter(SOVEREIGNT != "Antarctica") %>% 
+  ggplot()+
+  geom_sf(fill = color1,
+          color = color1,
+          size = 0.5)+
+  geom_sf(data = lv_locations,
+          aes(size = vei),
+          shape = 17,
+          color = color2,
+          alpha = 0.7)+
+  scale_size_continuous(range = c(2,5),breaks = c(5,6,7))+
+  labs(title = "Location of large volcanoes",
+       subtitle = "with Volcano Explosivity Index \n",
+       caption = "Source : github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12")+
+  theme_void()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        text = element_text(family = "Roboto Slab"),
+        plot.title = element_text(hjust = 0.5,
+                                  face = "bold",
+                                  color = color1),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     color = color2),
+        plot.caption = element_text(hjust = 0.5,
+                                    size = 6))
+```
+
+### Here's a table with all volcanoes, their volcano explosivity index and where they are located
+
+###### Volcanic explosivity index (VEI) : Relative measure of the explosiveness of volcanic eruptions
+
+```{r echo=FALSE}
+volcano %>% 
+  left_join(eruptions,
+            by = c("volcano_number", "latitude", "longitude","volcano_name")) %>% 
+  select(volcano_name, country,vei) %>% 
+  filter(!is.na(vei)) %>% 
+  arrange(desc(vei)) %>% 
+  distinct(volcano_name, country,vei, .keep_all = F) %>% 
+  rename("Volcano" = volcano_name, 
+         "Country" = country,
+         "VEI" = vei) %>%
+  datatable(
+    options = list(initComplete = JS("function(settings, json)
+                      {$(this.api().table().header()).css(
+                      {'font-family' :'Roboto Slab'});}"),
+                   dom = "t p"
+        )) %>% 
+  formatStyle(columns = " ",
+    backgroundColor = color2,
+    color = color1,
+    fontFamily = "Roboto Slab",
+    target = "row")
+```
+
+### And here are the countries where we can find most of them
+
+```{r echo=FALSE}
+volcano %>% 
+  count(country) %>% 
+  arrange(n) %>% 
+  tail(10) %>% 
+  mutate(country = fct_inorder(country)) %>% 
+  ggplot()+
+  geom_col(aes(x = country, 
+               y = n),
+           fill = color2,
+           width = 0.6)+
+  labs(title = "Top 10 countries",
+       subtitle = "with the most volcanoes",
+       caption = "Source : github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12",
+       x = "",
+       y = "")+
+  coord_flip()+
+  theme_minimal()+
+  theme(text = element_text(family = "Roboto Slab"),
+        plot.title = element_text(face = "bold",
+                                  color = color1,
+                                  hjust = 0.3),
+        plot.subtitle = element_text(face = "bold",
+                                     color = color2,
+                                     hjust = 0.28),
+        plot.caption = element_text(size = 6,
+                                    hjust = 0.3)
+        )
+```
+
+### But they are not here by accident...
+
+```{r include=FALSE}
+plates <- st_read("data/tectonicplates-master/PB2002_boundaries.shp")
+```
+
+```{r include=FALSE}
+all_loc <- volcano %>% 
+  left_join(eruptions,
+            by = c("volcano_number", "latitude", "longitude","volcano_name"))%>% 
+  st_as_sf(coords = c("longitude","latitude"), crs = 4326)
+```
+
+```{r echo=FALSE}
+plates %>% 
+  ggplot()+
+  geom_sf(color = color1)+
+  geom_sf(data = all_loc,
+          color = color2,
+          shape = 17,
+          size = 1)+
+  labs(title = "Position of world volcanoes",
+       subtitle = "on tectonic plates",
+       caption = "Source : github.com/fraxen/tectonicplates 
+       github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12")+
+  theme_void()+
+  theme(text = element_text(family = "Roboto Slab"),
+        plot.title = element_text(face = "bold",
+                                  color = color1,
+                                  hjust = 0.5),
+        plot.subtitle = element_text(face = "bold",
+                                     color = color2,
+                                     hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5,
+                                    size = 6)
+        )
+```
+
+We see that the volcanoes are mainly located on the edge of tectonic plates, this is where a lot of seismic activity occurs. Plates go one under the other and create lava resurgences on the surface, thus creating volcanic activity. 
+
+```{r eval=FALSE, include=FALSE}
+volcano %>% 
+  distinct(primary_volcano_type) %>% 
+  arrange(primary_volcano_type)
+```
+## How explosive are each volcano types in general ?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+volcano %>% 
+  left_join(eruptions,
+            by = c("volcano_number", "latitude", "longitude","volcano_name")) %>% 
+  arrange(vei) %>% 
+  filter(primary_volcano_type != "Tuff cone") %>% #Tuff cone has only na values
+  mutate(primary_volcano_type = fct_inorder(primary_volcano_type)) %>% 
+  ggplot()+
+  ggridges::geom_density_ridges(aes(x = vei,
+                                    y = primary_volcano_type),
+                                fill = color2,
+                                na.rm = T)+
+  labs(title = "Different types of volcanoes",
+       subtitle = "and their overall VEI",
+       y = "",
+       x = "VEI",
+       caption = "Source : github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12")+
+  theme_minimal()+
+  theme(panel.grid.major.y = element_blank(),
+        text = element_text(family = "Roboto Slab"),
+        plot.title = element_text(hjust = 0.3, 
+                                  color = color1,
+                                  face = "bold"),
+        plot.subtitle = element_text(hjust = 0.3,
+                                     color = color2,
+                                     face = "bold"),
+        axis.title.x = element_text(hjust = 0.4),
+        plot.caption = element_text(hjust = 0.3,
+                                    size = 6))
+```
+
+## What type of volcano scare people most ?
+
+Let's see locally how dangerous a certain volcano is for it's surroundings
+
+```{r echo=FALSE}
+large_volcanoes %>% 
+  filter(primary_volcano_type != "Subglacial") %>% #not interesting
+  group_by(primary_volcano_type) %>% 
+  summarise(pop10 = mean(population_within_10_km),
+            pop30 = mean(population_within_30_km),
+            pop100 = mean(population_within_100_km)) %>% 
+  ggplot()+
+  geom_point(aes(x = primary_volcano_type,
+                 y = 0,
+                 color = pop100),
+             size = 35)+
+  geom_point(aes(x = primary_volcano_type,
+                 y = 0,
+                 color = pop30),
+             size = 20)+
+  geom_point(aes(x = primary_volcano_type,
+                 y = 0,
+                 color = pop10),
+             size = 10)+
+  geom_point(aes(x = primary_volcano_type,
+                 y = 0),
+             shape = 17,
+             color = color1,
+             size = 5)+
+  scale_color_gradient(low = color2,
+                       high = color1,
+                       trans = "log10",
+                       breaks = c(1e4,1e5,1e6), 
+                       labels = c("High","Med","Low"))+
+  labs(title = "Danger zones of large volcanoes (VEI 5-7)",
+       subtitle = "according to living population nearby",
+       color = "Danger",
+       caption = "Source : github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12",
+       x = "Zones from center to out : 10, 30 and 100km")+
+  guides(color = guide_colorbar(reverse = T))+
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        panel.grid = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(vjust = 30,
+                                   color = color1),
+        text = element_text(family = "Roboto Slab"),
+        plot.title = element_text(color = color1,
+                                  hjust = 0.5,
+                                  face = "bold"),
+        plot.subtitle = element_text(color = color2,
+                                     hjust = 0.5,
+                                     face = "bold"),
+        plot.caption = element_text(hjust = 0.5,
+                                    size = 6),
+        axis.title.x = element_text(vjust = 20,
+                                    size = 8,
+                                    color = color2))
+
+
+```
+
+
+
+
+

@@ -1,0 +1,548 @@
+---
+title: "Report 3"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+## Import packages
+
+```{r message=FALSE}
+library(tidyverse)
+library(sf)
+library(leaflet)
+library(patchwork)
+library(osmdata)
+```
+
+## Question 1
+
+Let's get the csv data
+
+```{r message=FALSE}
+ihme <- read_csv("data/IHME_DAH_DATABASE_1990_2019_Y2020M04D23.CSV", 
+                 na = c('NA', '-', ''))
+```
+
+Let's work with HIV, malaria and tuberculosis
+
+```{r}
+diseases <- c("hiv","mal","tb")
+```
+
+Compute sum of spendings by country and change the names to match the shapes data
+
+```{r}
+dollar_spent_2019 <- ihme %>% 
+  filter(year == 2019) %>% 
+  select(source, contains(diseases)) %>% 
+  pivot_longer(cols = contains(diseases)) %>% 
+  group_by(source) %>% 
+  summarise(dollar_spent = sum(value, na.rm = T)) %>% 
+  mutate(source = str_replace_all(source, 
+                              c("New_Zealand" = "New Zealand",
+                                "United_Kingdom" = "United Kingdom",
+                                "United_States" = "United States of America")))
+```
+
+Create the intervals with labels for legend
+
+```{r}
+dollars <- dollar_spent_2019 %>% 
+  pull(dollar_spent)
+
+cuts <- dollars %>% 
+  classInt::classIntervals(n = 5) %>% 
+  pluck("brks")
+
+labels <- tibble(cuts1 = cuts, cuts2 = lead(cuts)) %>% 
+  head(-1) %>% 
+  mutate(cuts1 = scales::dollar_format()(cuts1),
+         cuts2 = scales::dollar_format()(cuts2),
+         label = paste0(cuts1, " - ", cuts2) %>% fct_inorder())
+```
+
+Apply the cuts
+
+```{r}
+dollar_spent_2019 <- dollar_spent_2019 %>% 
+  mutate(cut = cut(dollar_spent,
+                   breaks = cuts,
+                   labels = labels$label))
+```
+
+Read the shape file
+
+```{r message=FALSE}
+world <- st_read("data/110m_cultural/ne_110m_admin_0_countries.shp")
+```
+
+Join the shape and the csv
+
+```{r}
+world <- world %>% 
+  left_join(dollar_spent_2019, by = c("SOVEREIGNT" = "source"))
+```
+
+Plot the data
+
+```{r}
+world_dollar_spent <- ggplot()+
+  geom_sf(data = world %>% filter(SOVEREIGNT != "Antarctica"),
+          mapping = aes(fill = cut),
+          color = "darkgray",
+          size = 0.2)+
+  scale_fill_brewer(na.value = "transparent")+
+  labs(title = "Variation of dollars spent by country in 2019",
+       subtitle = "For Tuberculosis, Malaria and HIV",
+       fill = "",
+       caption = "Source : www.healthdata.org")+
+  theme_void()+
+  theme(legend.position = "bottom",
+        plot.title = element_text(hjust = 0.1),
+        plot.subtitle = element_text(hjust = 0.075),
+        plot.caption = element_text(face = "italic",
+                                    hjust = 0.9,
+                                    size = 7))
+world_dollar_spent
+```
+
+## Question 2
+
+Let's do the same map but using countries that recieved money
+
+```{r}
+dollar_received_2002 <- ihme %>% 
+  filter(year == 2002) %>% 
+  select(recipient_country, contains(diseases)) %>% 
+  pivot_longer(cols = contains(diseases)) %>% 
+  group_by(recipient_country) %>% 
+  summarise(dollar_received = sum(value, na.rm = T)) %>% 
+  mutate(dollar_received = na_if(dollar_received,0))
+```
+
+```{r message=FALSE, warning=FALSE}
+cuts_recieved <- dollar_received_2002 %>% 
+  pull(dollar_received) %>% 
+  classInt::classIntervals(n = 5) %>% 
+  pluck("brks")
+
+labels_recieved <- tibble(cut1 = round(cuts), cut2 = round(lead(cuts))) %>% 
+  head(-1) %>% 
+  mutate(cut1 = scales::dollar_format()(cut1),
+         cut2 = scales::dollar_format()(cut2),
+         label = paste0(cut1, " - ", cut2) %>% fct_inorder())
+```
+
+Replace some names of countries
+
+```{r}
+dollar_received_2002 <- dollar_received_2002 %>% 
+  mutate(labels_recieved = cut(dollar_received,
+                               breaks = cuts_recieved,
+                               label = labels_recieved$label),
+         recipient_country = str_replace_all(recipient_country, 
+                                 c("Cote d'Ivoire" = "Ivory Coast",
+                                    "Serbia" = "Republic of Serbia",
+                                    "Tanzania" = "United Republic of Tanzania",
+                                    "Swaziland" = "eSwatini")))
+```
+
+```{r}
+world <- world %>% 
+  left_join(dollar_received_2002, by = c("SOVEREIGNT" = "recipient_country"))
+```
+
+Plot the map
+
+```{r}
+world_dollar_recieved <- ggplot()+
+  geom_sf(data = world %>% filter(SOVEREIGNT != "Antarctica"),
+          mapping = aes(fill = labels_recieved),
+          color = "darkgray",
+          size = 0.2)+
+  scale_fill_brewer(na.value = "transparent",
+                    palette = "Greens")+
+  labs(title = "Variation of dollars recieved by country in 2002",
+       subtitle = "For Tuberculosis, Malaria and HIV",
+       fill = "",
+       caption = "Source : www.healthdata.org")+
+  theme_void()+
+  theme(legend.position = "bottom",
+        plot.title = element_text(hjust = 0.1),
+        plot.subtitle = element_text(hjust = 0.07),
+        plot.caption = element_text(face = "italic",
+                                    hjust = 0.9,
+                                    size = 7))
+world_dollar_recieved
+```
+
+## Question 3
+
+Let's create the regions shapes
+
+```{r message=FALSE}
+regions <- world %>% 
+  group_by(REGION_WB) %>% 
+  summarise()
+```
+
+```{r}
+regions %>% pull(REGION_WB) %>% 
+  sort
+```
+
+```{r}
+ihme %>% 
+  pull(gbd_region) %>% 
+  unique
+```
+We see we have different names, we have to rename the gdb regions before joining
+
+```{r}
+ihme_gbd_reg <- ihme %>% 
+  mutate(gbd_region = str_replace_all(
+    gbd_region, c("North Africa/Middle East" = "Middle East & North Africa",
+                  "Caribbean" = "Latin America & Caribbean",
+                  "Sub-Saharan Africa, Eastern" = "Sub-Saharan Africa",
+                  "Europe, Eastern" = "Europe & Central Asia",
+                  "Sub-Saharan Africa, Southern" = "Sub-Saharan Africa",
+                  "Oceania" = "East Asia & Pacific",
+                  "Sub-Saharan Africa, Central" = "Sub-Saharan Africa",
+                  "Latin America, Southern" = "Latin America & Caribbean",
+                  "Sub-Saharan Africa, Western" = "Sub-Saharan Africa",
+                  "Latin America, Andean" = "Latin America & Caribbean",
+                  "Asia, East" = "East Asia & Pacific",
+                  "Asia, Southeast" = "East Asia & Pacific",
+                  "Europe, Central" = "Europe & Central Asia",
+                  "Asia, Central" = "South Asia",
+                  "Asia, South" = "South Asia",
+                  "Latin America, Tropical" = "Latin America & Caribbean",
+                  "Latin America, Central" = "Latin America & Caribbean",
+                  "Asia Pacific, high-income" = "East Asia & Pacific",
+                  "Europe, Western" = "Europe & Central Asia"
+                  ))) 
+```
+
+```{r}
+ihme_gbd_reg_2002 <- ihme_gbd_reg %>% 
+  filter(year == 2002) %>% 
+  select(gbd_region, contains(diseases)) %>% 
+  pivot_longer(cols = contains(diseases)) %>% 
+  group_by(gbd_region) %>% 
+  summarise(dollar_received = sum(value, na.rm = T))
+```
+
+```{r}
+dollar_recieved_region <- ihme_gbd_reg_2002 %>% 
+  pull(dollar_received) %>% 
+  classInt::classIntervals(n = 3) %>% 
+  pluck("brks")
+
+lab_2002 <- dollar_recieved_region %>%  
+  as_tibble() %>% 
+  mutate(value2 = lead(value)) %>% 
+  head(-1) %>% 
+  mutate(label = paste0(round(value), " - ", round(value2), " $"))
+```
+
+```{r}
+ihme_gbd_reg_2002 <- ihme_gbd_reg_2002 %>% 
+  mutate(cut = cut(dollar_received,
+                   breaks = dollar_recieved_region,
+                   labels = lab_2002$label,
+                   include.lowest = T))
+```
+
+```{r}
+regions <- regions %>% 
+  left_join(ihme_gbd_reg_2002, by = c("REGION_WB" = "gbd_region"))
+```
+
+```{r}
+regions %>%
+  filter(REGION_WB != "Antarctica") %>% 
+  ggplot()+
+  geom_sf(aes(fill = cut),
+          size = 0.1)+
+  labs(title = "Variation of dollars recieved by region in 2002",
+       subtitle = "For Tuberculosis, Malaria and HIV",
+       fill = "",
+       caption = "Source : www.healthdata.org")+
+  scale_fill_brewer(palette = "Greens")+
+  theme_void()+
+  theme(legend.position = "bottom",
+        plot.title = element_text(hjust = 0.1),
+        plot.subtitle = element_text(hjust = 0.07),
+        plot.caption = element_text(face = "italic",
+                                    hjust = 0.9,
+                                    size = 8))
+```
+
+## Question 5
+
+Let's add interactions using leaflet 
+
+First create the labels we will use, we want to show country and how many dollars it received
+
+```{r}
+leaflet_labs <- paste(
+  "Country: ", world$SOVEREIGNT, "<br/>",
+  "Dollars recieved: ", world$dollar_received," $", "<br/>"
+) %>%
+  lapply(htmltools::HTML)
+```
+
+Then we plot our shape in leaflet with the addPolygons and link our data with fillColor and the text we prepared with label.
+
+```{r}
+factpal <- colorFactor(palette = "Greens", world$labels_recieved)
+
+leaflet(world)%>%
+  addPolygons(
+    stroke = TRUE,
+    color = 'gray',
+    weight = 1.5,
+    fillColor = factpal(world$labels_recieved),
+    label = leaflet_labs,
+    highlightOptions = highlightOptions(color = "white", weight = 3,
+      bringToFront = TRUE)) %>% 
+    setView(lng = 0, lat = 0, zoom = 1) %>% 
+  addLegend("bottomright",pal = factpal, 
+            values = world$labels_recieved,
+            title = "Variation of dollars recieved by country in 2002")
+```
+
+## Question 6
+
+First we get our bbox
+
+```{r message=FALSE, warning=FALSE}
+africa_bbox <- world %>% 
+  filter(CONTINENT == "Africa") %>% 
+  st_bbox() %>% 
+  st_as_sfc() %>% 
+  st_buffer(2)
+```
+
+Then the shape of the continent we want to highlight, here Africa
+
+```{r}
+africa <- world %>% 
+  filter(CONTINENT == "Africa")
+```
+
+Put the bbox around Africa in the world map
+
+```{r}
+inset <- world %>% filter(SOVEREIGNT != "Antarctica") %>% 
+  ggplot()+
+  geom_sf(size = 0.1)+
+  geom_sf(data = africa_bbox,
+          fill = NA,
+          color = "brown")+
+  theme_void()
+inset
+```
+
+Plot the data on the Africa map
+
+```{r}
+africa_map <- africa %>% 
+  ggplot()+
+  geom_sf(data = world %>% filter(CONTINENT != "Africa"),
+          fill = NA,
+          color = "gray",
+          size = 0.3)+
+  geom_sf(mapping = aes(fill = labels_recieved),
+          color = "white",
+          size = 0.1)+
+  scale_fill_brewer(palette = "Greens",
+                    na.value = "gray")+
+  labs(fill = "")+
+  coord_sf(xlim = st_bbox(africa_bbox)[c(1,3)],
+           ylim = st_bbox(africa_bbox)[c(2,4)])+
+  theme_void()+
+  theme(legend.position = "bottom")
+africa_map
+```
+
+Put it all together with patchwork
+
+```{r}
+layout <- c(
+  area(t = 1, l = 0, b = 7, r = 3),
+  area(t = 1, l = 1, b = 6, r = 10)
+)
+
+inset + africa_map +
+  plot_layout(design = layout) +
+  plot_annotation(title = "Dollars recieved in African countries (2002)",
+                  subtitle = "For Tuberculosis, Malaria and HIV\n",
+                  caption = "Source : www.healthdata.org",
+                  theme = theme(plot.title = element_text(hjust = 0.5),
+                                plot.subtitle = element_text(hjust = 0.5),
+                                plot.caption = element_text(face = "italic")
+                                ))
+```
+## Question 7
+
+Data found on https://osdatahub.os.uk/downloads/open?_ga=2.3518960.1516077193.1626005802-1560027532.1626005802
+
+```{r message=FALSE, warning=FALSE}
+london <- st_read("data/bdline_essh_gb/Data/greater_london_const_region.shp")
+```
+
+```{r message=FALSE, warning=FALSE}
+ext_london <- st_read("data/bdline_essh_gb/Data/county_region.shp")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+london_bbox <- london %>% 
+  st_bbox() %>% 
+  st_as_sfc() %>% 
+  st_buffer(2)
+```
+
+```{r message=FALSE, warning=FALSE}
+urban_reg <- st_read("data/strtgi_essh_gb/data/urban_region.shp") %>% 
+  rmapshaper::ms_simplify()
+```
+
+
+```{r message=FALSE, warning=FALSE}
+green_space <- st_read("data/OS Open Greenspace (ESRI Shape File) GB/data/GB_GreenspaceSite.shp") %>% 
+  rmapshaper::ms_simplify()
+```
+
+```{r message=FALSE, warning=FALSE}
+rivers <- st_read("data/oprvrs_essh_gb/data/WatercourseLink.shp")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+green_space_ld <- london %>% 
+  st_intersection(green_space)
+
+rivers_ld <- london %>% 
+  st_intersection(rivers)
+```
+```{r message=FALSE, warning=FALSE}
+urban_reg_ld <- london %>% 
+  st_intersection(urban_reg)
+```
+
+
+```{r}
+london %>% 
+  ggplot()+
+  geom_sf(data = ext_london,
+          fill = NA)+
+  geom_sf(fill = "#F0F0F0")+
+  geom_sf(data = urban_reg_ld,
+          fill = "#EBE172",
+          alpha = 0.5)+
+  geom_sf(data = green_space_ld,
+          fill = "#93EB5D",
+          color = NA,
+          alpha = 0.9)+
+  geom_sf(data = rivers_ld,
+          color = "#5D9FEB")+
+  coord_sf(xlim = st_bbox(london_bbox)[c(1,3)],
+           ylim = st_bbox(london_bbox)[c(2,4)])+
+  labs(title = "London <span style = 'color:#EBE172'>urban area</span>",
+       subtitle = "And its <span style = 'color:#5D9FEB'>rivers</span> and
+       <span style = 'color:#93EB5D'>green areas</span>",
+       caption = "Source : osdatahub.os.uk")+
+  theme_void()+
+  theme(plot.title = ggtext::element_markdown(hjust = 0.5),
+        plot.subtitle = ggtext::element_markdown(hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5))
+```
+
+## Question 8
+
+Let's now try to map Paris with OSM
+
+```{r}
+streets <- getbb("paris") %>% 
+  opq() %>% 
+  add_osm_feature(key = "highway",
+                  value = c("primary","secondary","tertiary","motorway")) %>% 
+  osmdata_sf() %>% 
+  pluck("osm_lines") 
+```
+
+```{r}
+small_streets <- getbb("paris") %>% 
+  opq() %>%
+  add_osm_feature(
+    key = "highway",
+    value = c(
+      "residential", "living_street",
+      "unclassified",
+      "service", "footway"
+    )
+  ) %>%
+  osmdata_sf() %>%
+  pluck("osm_lines")
+```
+
+```{r}
+river <- getbb("paris") %>% 
+  opq() %>% 
+  add_osm_feature(
+    key = "waterway",
+    value = "river"
+  ) %>% 
+  osmdata_sf() %>% 
+  pluck("osm_lines")
+```
+
+```{r}
+hotels <- getbb("paris") %>% 
+  opq() %>% 
+  add_osm_feature(
+    key = "tourism",
+    value = "hotel"
+  ) %>% 
+  osmdata_sf() %>% 
+  pluck("osm_points")
+```
+
+```{r}
+taxi <- getbb("paris") %>% 
+  opq() %>% 
+  add_osm_feature(
+    key = "amenity",
+    value = "taxi"
+  ) %>% 
+  osmdata_sf() %>% 
+  pluck("osm_points")
+```
+
+Put it all together
+
+```{r}
+ggplot()+
+  geom_sf(data = river, 
+          color = "#3182bd",
+          size = 2)+
+  geom_sf(data = small_streets)+
+  geom_sf(data = streets)+
+  geom_sf(data = hotels, 
+          color = "#c24c15",
+          size = 0.5)+
+  geom_sf(data = taxi,
+          color = "gold",
+          size = 0.5)+
+  coord_sf(xlim = c(2.238762,2.447758),
+           ylim = c(48.818118,48.899639))+
+  theme_void()+
+  labs(title = "Paris...",
+       subtitle = "And it's <span style = 'color:#c24c15'>hotels</span> and 
+       <span style = 'color:gold'>taxi</span> pickup places \n")+
+  theme(plot.subtitle = ggtext::element_markdown())
+```
+

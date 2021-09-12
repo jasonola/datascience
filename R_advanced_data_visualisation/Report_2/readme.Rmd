@@ -1,0 +1,252 @@
+---
+title: "Report 2"
+author: "Jason Ola"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+---
+
+## Import packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tidygraph)
+library(ggraph)
+```
+
+## Part 1 - Getting the data
+
+```{r message=FALSE, warning=FALSE}
+movies_data <-  read_delim("data/Movies.paj", delim = " ") 
+movies_nodes <- slice(movies_data, 2:103) %>% 
+  rename("node_id" = "*Network",
+         "name" = "Movies.net",
+         "mode" = "[2-Mode]") %>% 
+  select(-mode)
+movies_edges <- slice(movies_data, 106:297) %>% 
+    rename("from" = "*Network",
+         "to" = "Movies.net",
+         "n_collabs" = "[2-Mode]")
+```
+
+Cleaning the collumn classes
+
+```{r}
+movies_nodes <- movies_nodes %>% 
+  mutate(node_id = as.integer(node_id))
+```
+
+```{r}
+movies_edges <- movies_edges %>% 
+  mutate(from = as.integer(from),
+         to = as.integer(to))
+```
+
+Creating the graph
+
+```{r}
+directed_tree <- tbl_graph(nodes = movies_nodes, 
+                           edges = movies_edges, 
+                           directed = T)
+```
+
+```{r}
+n_nodes <- directed_tree %>% 
+  as_tibble() %>% 
+  count() %>% 
+  pull()
+```
+
+There are `r n_nodes` nodes
+
+Filter out the isolated node and separate producers from composers
+
+```{r}
+directed_tree <- directed_tree %N>% 
+  mutate(role = if_else(node_id < 63, "Producer", "Composer"))%N>% 
+  filter(!node_is_isolated())
+  
+```
+
+## Part 2 
+
+Do an initial plot 
+
+```{r message=FALSE, warning=FALSE}
+directed_tree %>% 
+  ggraph()+
+  geom_edge_link(arrow = arrow(length = unit(2,"mm")),
+                 end_cap = circle(2,"mm"),
+                 start_cap = circle(2,"mm"),
+                 color = "#FDFFFC",
+                 width = 0.1)+
+  geom_node_text(aes(label = node_id,
+                     color = role),
+                 angle = 90,
+                 size = 1.8)+
+  scale_color_manual(values = c("#2EC4B6","#E71D36"))+
+  labs(title = "Initial plot")+
+  theme_graph()+
+  theme(legend.title = element_blank(),
+        plot.background = element_rect(fill = "#011627"),
+        text = element_text(color = "#FDFFFC"),
+        plot.title = element_text(color = "#FDFFFC"))
+```
+Here is a table with corresponding names to the IDs
+
+```{r}
+directed_tree %N>% 
+  as_tibble() %>% 
+  rename("ID" = "node_id",
+         "Name" = "name",
+         "Role" = "role") %>% 
+  DT::datatable(rownames = FALSE) 
+```
+
+## Part 3
+
+Producers that worked with the same composers
+
+```{r}
+name_id <- directed_tree %N>% 
+  as_tibble() %>% 
+  select(node_id, name)
+```
+
+```{r}
+producer_tree <- directed_tree %E>%
+  as_tibble() %>% 
+  select(from,to) %>% 
+  group_by(to) %>% 
+  #get all the ids from composers and put them in a list
+  mutate(new_from = list(unique(from))) %>% 
+  #unnest the list
+  unnest_longer(new_from)%>% 
+  #filter out the loops
+  filter(from != new_from) %>% 
+  ungroup() %>% 
+  select(from = new_from, to = from)%>% 
+  as_tbl_graph() %N>% 
+  select(node_id = name) %>% 
+  mutate(node_id = as.integer(node_id)) %>% 
+  left_join(name_id, by = "node_id") %>% 
+  #Make it undirected, there is no hierarchy.
+  to_undirected()
+```
+
+```{r message=FALSE, warning=FALSE}
+producer_tree %>% 
+  ggraph()+
+  geom_edge_link(width = 0.1,
+                 color = "#FDFFFC",
+                 alpha = 0.5)+
+  geom_node_point(size = 0.5,
+                  color = "#FDFFFC")+
+  labs(title = "Initial plot",
+       subtitle = "Which producers worked with the same composers ?")+
+  theme_graph()+
+  theme(plot.background = element_rect(fill = "#011627"),
+        plot.title = element_text(color = "#FDFFFC"),
+        plot.subtitle = element_text(color = "#FDFFFC"))
+```
+
+## Part 4 
+
+Let's try some clustering
+
+```{r message=FALSE, warning=FALSE}
+producer_tree %>% 
+  mutate(Group = group_leading_eigen() %>% as.factor()) %>% 
+  ggraph()+
+  geom_edge_link(width = 0.1,
+                 color = "#FDFFFC",
+                 alpha = 0.2)+
+  geom_node_point(aes(color = Group),
+                  size = 0.8)+
+  labs(title = "Leading eigen clustering algorithm",
+       subtitle = "Which producers worked with the same composers ?")+
+  scale_color_manual(values = c("#2EC4B6","#E71D36","green"))+
+  theme_graph()+
+  theme(plot.background = element_rect(fill = "#011627"),
+        plot.title = element_text(color = "#FDFFFC"),
+        plot.subtitle = element_text(color = "#FDFFFC"),
+        text = element_text(color = "white"))
+  
+```
+
+```{r message=FALSE, warning=FALSE}
+producer_tree %>% 
+  mutate(Group = group_louvain() %>% as.factor()) %>% 
+  ggraph()+
+  geom_edge_link(width = 0.1,
+                 color = "#FDFFFC",
+                 alpha = 0.2)+
+  geom_node_point(aes(color = Group),
+                  size = 0.8)+
+  labs(title = "Louvain clustering algorithm",
+       subtitle = "Which producers worked with the same composers ?")+
+  scale_color_manual(values = c("#2EC4B6","#E71D36","green"))+
+  theme_graph()+
+  theme(plot.background = element_rect(fill = "#011627"),
+        plot.title = element_text(color = "#FDFFFC"),
+        plot.subtitle = element_text(color = "#FDFFFC"),
+        text = element_text(color = "white"))
+```
+```{r message=FALSE, warning=FALSE}
+producer_tree %>% 
+  mutate(Group = group_spinglass() %>% as.factor()) %>% 
+  ggraph()+
+  geom_edge_link(width = 0.1,
+                 color = "#FDFFFC",
+                 alpha = 0.2)+
+  geom_node_point(aes(color = Group),
+                  size = 0.8)+
+  labs(title = "Spinglass clustering algorithm",
+       subtitle = "Which producers worked with the same composers ?")+
+  theme_graph()+
+  theme(plot.background = element_rect(fill = "#011627"),
+        plot.title = element_text(color = "#FDFFFC"),
+        plot.subtitle = element_text(color = "#FDFFFC"),
+        text = element_text(color = "white"))
+```
+
+I've computed the plots for 3 different clustering algorithms and ran them multiple times to see if they change output. We see in the spinglass algorithm that it tends to divide the graph into more subgroups, here 5, sometimes 6, it tries to catch outliers together in groups, but the output is often different when we rerun it. For the leading eigen algorithm, we see it divided the graph into 3 groups that are well separated, the output is consistent when we rerun it. As for the Louvain algorithm, we see it's also consistent, however there are some green mixup among the blue cluster that we might not particularly want. I would choose the leading eigen algorithm for this graph analysis.
+
+## Part 5
+
+Let's touch up our graph a little more
+
+
+```{r message=FALSE, warning=FALSE}
+producer_tree %>% 
+  mutate(Group = group_leading_eigen() %>% as.factor()) %>% 
+  ggraph()+
+  ggforce::geom_mark_hull(aes(x,y,
+                              group = Group, 
+                              fill = Group),
+                          alpha = 0.1,
+                          concavity = 5,
+                          size = 0.3)+
+  geom_edge_link(width = 0.1,
+                 color = "#FDFFFC",
+                 alpha = 0.1)+
+  geom_node_text(aes(label = node_id,
+                     color = Group),
+                  size = 2)+
+  labs(title = "Leading eigen clustering algorithm",
+       subtitle = "Which producers worked with the same composers ?",
+       caption = "Source : sites.google.com/site/
+       ucinetsoftware/datasets/hollywoodfilmmusic")+
+  scale_color_manual(values = c("#2EC4B6","#E71D36","green"))+
+  scale_fill_manual(values = c("#2EC4B6","#E71D36","green"))+
+  theme_graph()+
+  theme(plot.background = element_rect(fill = "#011627"),
+        plot.title = element_text(color = "#FDFFFC"),
+        plot.subtitle = element_text(color = "#FDFFFC"),
+        text = element_text(color = "white"),
+        plot.caption = element_text(color = "#FDFFFC",
+                                    size = 8))
+  
+```
+
+
+
