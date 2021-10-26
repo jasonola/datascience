@@ -19,4 +19,9 @@ For this project I had to find ways of cleaning the very messy data, choosing th
 Techs : Python, pandas, numpy, matplotlib, seaborn, scikit-learn, flask, pyAudioAnalysis, keras
 Skills covered : data cleaning, exploratory data analysis, feature engineering, data visualisation, insights, use of sk-learn pipes/grid search, regression, classification, unsupervised learning, neural networks
 
+This is where I showcase my work in machine learning with Python
 
+In the [Regression](https://github.com/jasonola/datascience/tree/master/python_ml/regression) file, you will see my first touch with ML as I implement a simple regression model with numpy in the [beginner ML](https://github.com/jasonola/datascience/blob/master/python_ml/regression/initial_ml_exercices/beginner_ml.ipynb) file. I also use my first sk-learn objects.
+In the more advanced [regression](https://github.com/jasonola/datascience/blob/master/python_ml/regression/regression/regression_project.ipynb) file I work on the Boston house price dataset. I start by doing some EDA to inform myself of the data, what is missing, what I should encode differently. My thought process is thoroughly explained throughout the notebook. I did multiple models : simple (fed with 2 most important features), intermediate (fed with 20 important features) and complex (fed with all features).
+
+In the [classification](https://github.com/jasonola/datascience/tree/master/python_ml/classification) folder I work on a classification task to classify 6 different types of vehicles. I started working with multiple files to separate my work better so it can be clearer
