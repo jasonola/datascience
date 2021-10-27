@@ -4,7 +4,9 @@ Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne
 
 Let me guide you through my files and projects !
 
-## [Python Data Analysis](https://github.com/jasonola/datascience/tree/master/python_data_analysis)
+## Python
+
+### [Python Data Analysis](https://github.com/jasonola/datascience/tree/master/python_data_analysis)
 
 Techs : Python, matplotlib, pandas, numpy, seaborn, sqlite3
 
@@ -15,7 +17,7 @@ Skills covered : data import, data cleaning, missing values handling, statistica
 [Advanced notebook](https://github.com/jasonola/datascience/tree/master/python_data_analysis/advanced_data_wrangling) : I do data wrangling on a much bigger and messy dataset that you can download here : [openfoods dataset](en.openfoodfacts.org.products.tsv)
 For this project I had to find ways of cleaning the very messy data, choosing the right amount of data to keep or toss, how to replace missing/outlying data... All of this is outlined in details in the notebook.
 
-## [Python Machine Learning](https://github.com/jasonola/datascience/tree/master/python_ml)
+### [Python Machine Learning](https://github.com/jasonola/datascience/tree/master/python_ml)
 
 Techs : Python, pandas, numpy, matplotlib, seaborn, scikit-learn, flask, pyAudioAnalysis, keras
 
@@ -29,3 +31,15 @@ In the more advanced [regression](https://github.com/jasonola/datascience/blob/m
 In the [classification](https://github.com/jasonola/datascience/tree/master/python_ml/classification) folder I work on a classification task to classify 6 different types of vehicles. I started working with multiple files to separate my work better so it can be clearer. So in these files, I start by extracting my features from the images with an image generator. Then I do some EDA and finally I try multiple machine learning algorithm and deep learning network to see which one perform best. You can see the results [here](https://github.com/jasonola/datascience/blob/master/python_ml/classification/09%20Results.ipynb). 
 
 In the [Music genre recognition](https://github.com/jasonola/datascience/tree/master/python_ml/music_genre_recognition) file, I worked together with 2 partners : Melinda Femminis and Andrei Anikin. It's a project that aims to classify music genres. The project is fully discribed in the attached [readme](https://github.com/jasonola/datascience/blob/master/python_ml/music_genre_recognition/README.md).
+
+## R
+
+### [R Data visualisation](https://github.com/jasonola/datascience/tree/master/R_data_visualisation)
+
+Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble
+
+Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation
+
+> To see my html reports you can click on the html file in any folder you would like to explore and then download it. If a html code comes up on your browser when you click download, just right click on the code and click "save as", then you can open the html file in your browser to see the report !
+
+In this folder I showcase my first skills in data visualisation. 
