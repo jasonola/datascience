@@ -30,7 +30,7 @@ In the more advanced [regression](https://github.com/jasonola/datascience/blob/m
 
 In the [classification](https://github.com/jasonola/datascience/tree/master/python_ml/classification) folder I work on a classification task to classify 6 different types of vehicles. I started working with multiple files to separate my work better so it can be clearer. So in these files, I start by extracting my features from the images with an image generator. Then I do some EDA and finally I try multiple machine learning algorithm and deep learning network to see which one perform best. You can see the results [here](https://github.com/jasonola/datascience/blob/master/python_ml/classification/09%20Results.ipynb). 
 
-In the [Music genre recognition](https://github.com/jasonola/datascience/tree/master/python_ml/music_genre_recognition) file, I worked together with 2 partners : Melinda Femminis and Andrei Anikin. It's a project that aims to classify music genres. The project is fully discribed in the attached [readme](https://github.com/jasonola/datascience/blob/master/python_ml/music_genre_recognition/README.md).
+In the [Music genre recognition](https://github.com/jasonola/datascience/tree/master/python_ml/music_genre_recognition) file, I worked together with 2 partners : [Melinda Femminis](https://github.com/melindafemminis) and [Andrei Anikin](https://github.com/Andrei-ctrl). It's a project that aims to classify music genres. The project is fully discribed in the attached [readme](https://github.com/jasonola/datascience/blob/master/python_ml/music_genre_recognition/README.md). 
 
 ## R
 
@@ -42,4 +42,7 @@ Skills covered : Reporting, data cleaning, data visualisation, chart reproductio
 
 > To see my html reports you can click on the html file in any folder you would like to explore and then download it. If a html code comes up on your browser when you click download, just right click on the code and click "save as", then you can open the html file in your browser to see the report !
 
-In this folder I showcase my first skills in data visualisation. 
+In these folders I showcase my first skills in data visualisation. 
+In the [cartography](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/cartography) file, I do my first maps. In this report I plot gender employment gap onto Europe map, do some comparison between years, change projections. 
+In the [time series](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/time_series) file, I work with time series on the swiss market index and for the last part I did plots showing evolution of passengers traveling by Singapour airport. 
+In the [network](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/network_analysis) file, I plot my first graphs on social connections between classmates.
