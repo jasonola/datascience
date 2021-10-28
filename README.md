@@ -1,6 +1,6 @@
 # datascience
 
-Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science and Geography, and EPFL extension school alumni. In this repository you will find the work I've done so far during my studies at uni, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
+Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science and Geography, and EPFL extension school alumni. In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
 
 Let me guide you through my files and projects !
 
@@ -34,15 +34,37 @@ In the [Music genre recognition](https://github.com/jasonola/datascience/tree/ma
 
 ## R
 
+Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble, patchwork, leaflet, shiny
+
+Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation, shiny app creation
+
 ### [R Data visualisation](https://github.com/jasonola/datascience/tree/master/R_data_visualisation)
-
-Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble
-
-Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation
 
 > To see my html reports you can click on the html file in any folder you would like to explore and then download it. If a html code comes up on your browser when you click download, just right click on the code and click "save as", then you can open the html file in your browser to see the report !
 
 In these folders I showcase my first skills in data visualisation. 
+
 In the [cartography](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/cartography) file, I do my first maps. In this report I plot gender employment gap onto Europe map, do some comparison between years, change projections. 
 In the [time series](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/time_series) file, I work with time series on the swiss market index and for the last part I did plots showing evolution of passengers traveling by Singapour airport. 
 In the [network](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/network_analysis) file, I plot my first graphs on social connections between classmates.
+In the [chart reproduction](https://github.com/jasonola/datascience/tree/master/R_data_visualisation/chart_reproduction) file, I reproduce in a simple manner the pie chart on the last page of [this pdf](https://www.vd.ch/fileadmin/user_upload/organisation/dfin/aci/fichiers_pdf/21004_2019.pdf). I also produce alternative charts where I argue why they are better than pie charts.
+
+### [R Advanced Data visualisation](https://github.com/jasonola/datascience/tree/master/R_advanced_data_visualisation)
+
+In these folders I showcase more in depth skills and analysis. 
+
+In the [advanced time series](https://github.com/jasonola/datascience/tree/master/R_advanced_data_visualisation/Report_1) file, I do analysis on time series data from a cheese factory. I defined monitoring statistics and plotted Shewhart control charts with highlights of variations.
+
+In the [advanced network](https://github.com/jasonola/datascience/tree/master/R_advanced_data_visualisation/Report_2) file, I do network analysis on relations between producers and composers working on a movie. I had to do some text wrangling to get the data from the pajek file (.paj), it is essentially a .txt file. In this project I compute and compare different types of clustering algorithms and plot the results.  
+
+In the [cartography](https://github.com/jasonola/datascience/tree/master/R_advanced_data_visualisation/Report_3) file, I plot maps to showcase dollars sent or recieved by country for diseases like HIV, tuberculosis and malaria. I also did some interactive leaflet map, multiple charts arrangements with patchwork to do an inset map, and a map of hotels and taxi spots in Paris using open street map API.  
+
+In the [TidyTuesday project](https://github.com/jasonola/datascience/tree/master/R_advanced_data_visualisation/Report_4) file, I did a customised report showing data about volcanoes. This project was aimed to showcase creativity and resourcefulness. You can find the tidytuesday's repo folder for this project [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12/readme.md)
+
+### [R script](https://github.com/jasonola/datascience/tree/master/R_script)
+
+This is a work I had to do to pass a class at UNI using R. In this project I code a statistical test from scratch, do a linear regression, plot a residue diagram, some cartography exercise too and all plots are saved in pdf form. I used the data I worked with and tweeked in [another project](https://github.com/jasonola/datascience/tree/master/spss) using SPSS. More details are written in comments in the script file (in french though).
+
+### [R Shiny](https://github.com/jasonola/datascience/tree/master/R_shiny)
+
+In this folder there are
