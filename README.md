@@ -1,4 +1,4 @@
-# Jason Ola : Data Scientist / Visualisation Specilist
+# Data Scientist / Visualisation Specialist
 
 Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science and Geography, and EPFL extension school graduate in [Machine learning](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_ML_certificate.pdf) as well as [communication and visualisation](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_communication_visualisation_certificate.pdf). In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
 
