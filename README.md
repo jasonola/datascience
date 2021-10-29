@@ -1,6 +1,6 @@
 # datascience
 
-Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science and Geography, and EPFL extension school alumni. In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
+Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science and Geography, and EPFL extension school graduate in [Machine learning](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_ML_certificate.pdf) as well as [communication and visualisation](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_communication_visualisation_certificate.pdf). In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
 
 Let me guide you through my files and projects !
 
@@ -36,7 +36,7 @@ In the [Music genre recognition](https://github.com/jasonola/datascience/tree/ma
 
 Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble, patchwork, leaflet, shiny, testthat, golem
 
-Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation, shiny app creation
+Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation, shiny app creation, tests
 
 ### [R Data visualisation](https://github.com/jasonola/datascience/tree/master/R_data_visualisation)
 
@@ -70,3 +70,15 @@ This is a work I had to do to pass a class at UNI using R. In this project I cod
 [Fitness app](https://github.com/jasonola/datascience/tree/master/R_shiny/fitness_app) : It's an app using dummy data about fitness members. There are 3 different panels showing different charts about members gender, subscription and BMI category. 
 
 [Pokestats](https://github.com/jasonola/datascience/tree/master/R_shiny/Pokestats) : It's a more simple app than the fitness app showing data about pokemon stats in an interactive way. However, I used the Golem framework to build the app with modules. This makes the app scalable and easier to use among other devs, and multiple folders are created as would be a package, and moreover, it is easier to conduct tests.
+
+Geography quiz game app : coming soon !
+
+## [SPSS](https://github.com/jasonola/datascience/tree/master/spss) 
+
+Techs : IBM SPSS Statistics, LaTeX
+
+Skills : Scientific report with LaTeX, Statistical analysis / interpretation
+
+This is a project I did as part of an examination in a statistics class (Méthode quantitatives IV) at Université de Lausanne. You can find the [.sps](https://github.com/jasonola/datascience/blob/master/spss/syntaxe.sps) file to compute the analysis on the data, as well as a thorough [report](https://github.com/jasonola/datascience/blob/master/spss/analyses_crimes_cantons.pdf) (in french) written in LaTeX. 
+
+
