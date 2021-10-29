@@ -1,6 +1,6 @@
 # Data Scientist / Visualisation Specialist
 
-Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science for human sciences, and Geography, and EPFL extension school graduate in [Machine learning](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_ML_certificate.pdf) as well as [communication and visualisation](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_communication_visualisation_certificate.pdf). In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
+Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science for human sciences, and Geography, and EPFL extension school graduate in [machine learning](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_ML_certificate.pdf) as well as [communication and visualisation](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_communication_visualisation_certificate.pdf). In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
 
 Let me guide you through my files and projects !
 
@@ -80,7 +80,3 @@ Techs : IBM SPSS Statistics, LaTeX
 Skills : Scientific report with LaTeX, Statistical analysis / interpretation
 
 This is a project I did as part of an examination in a statistics class (Méthode quantitatives IV) at Université de Lausanne. You can find the [.sps](https://github.com/jasonola/datascience/blob/master/spss/syntaxe.sps) file to compute the analysis on the data, as well as a thorough [report](https://github.com/jasonola/datascience/blob/master/spss/analyses_crimes_cantons.pdf) (in french) written in LaTeX. 
-
-## Miscellaneous
-
-As part of my curriculum at UNI, I also had courses 
