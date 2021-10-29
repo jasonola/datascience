@@ -34,7 +34,7 @@ In the [Music genre recognition](https://github.com/jasonola/datascience/tree/ma
 
 ## R
 
-Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble, patchwork, leaflet, shiny
+Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble, patchwork, leaflet, shiny, testthat, golem
 
 Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation, shiny app creation
 
@@ -67,4 +67,6 @@ This is a work I had to do to pass a class at UNI using R. In this project I cod
 
 ### [R Shiny](https://github.com/jasonola/datascience/tree/master/R_shiny)
 
-In this folder there are
+[Fitness app](https://github.com/jasonola/datascience/tree/master/R_shiny/fitness_app) : It's an app using dummy data about fitness members. There are 3 different panels showing different charts about members gender, subscription and BMI category. 
+
+[Pokestats](https://github.com/jasonola/datascience/tree/master/R_shiny/Pokestats) : It's a more simple app than the fitness app showing data about pokemon stats in an interactive way. However, I used the Golem framework to build the app with modules. This makes the app scalable and easier to use among other devs, and multiple folders are created as would be a package, and moreover, it is easier to conduct tests.
