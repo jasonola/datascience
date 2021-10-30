@@ -1,0 +1,27 @@
+{
+    "id": "78D20139",
+    "path": "~/Desktop/gallery/producer_graph.R",
+    "project_path": "producer_graph.R",
+    "type": "r_source",
+    "hash": "383706040",
+    "contents": "",
+    "dirty": false,
+    "created": 1635603659607.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "79,8",
+        "scrollLine": "69"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1635604074,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1635604074456,
+    "read_only": false,
+    "read_only_alternatives": []
+}
