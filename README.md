@@ -61,6 +61,8 @@ In the [cartography](https://github.com/jasonola/datascience/tree/master/R_advan
 
 In the [TidyTuesday project](https://github.com/jasonola/datascience/tree/master/R_advanced_data_visualisation/Report_4) file, I did a customised report showing data about volcanoes. This project was aimed to showcase creativity and resourcefulness. You can find the tidytuesday's repo folder for this project [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-12/readme.md)
 
+> Check out my [gallery](https://github.com/jasonola/datascience/tree/master/gallery/gallery) where you can find samples of my visualisation that I did in my projects in .png format as well as the [code](https://github.com/jasonola/datascience/tree/master/gallery) I used to compute them.
+
 ### [R script](https://github.com/jasonola/datascience/tree/master/R_script)
 
 This is a project I did as part of an examination for a statistic class (Méthodes Quantitatives IV) at Université de Lausanne using R. In this project I code a statistical test from scratch, do a linear regression, plot a residue diagram, some cartography exercise too and all plots are saved in pdf form. I used the data I worked with and tweeked in [another project](https://github.com/jasonola/datascience/tree/master/spss) using SPSS. More details are written in comments in the script file (in french).
