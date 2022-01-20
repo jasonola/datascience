@@ -1,0 +1,26 @@
+{
+    "id": "671B0ABD",
+    "path": "~/Desktop/capstone-project-adscv-c5-s2-3268-2539/GeoGame/R/fct_helpers.R",
+    "project_path": "R/fct_helpers.R",
+    "type": "r_source",
+    "hash": "596340241",
+    "contents": "",
+    "dirty": false,
+    "created": 1642493563700.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "8,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1642495533,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1642495533679,
+    "read_only": false,
+    "read_only_alternatives": []
+}

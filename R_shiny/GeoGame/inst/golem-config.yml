@@ -1,0 +1,8 @@
+default:
+  golem_name: GeoGame
+  golem_version: 0.0.0.9000
+  app_prod: no
+production:
+  app_prod: yes
+dev:
+  golem_wd: /Users/jasonola/Desktop/capstone-project-adscv-c5-s2-3268-2539/GeoGame
