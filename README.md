@@ -75,7 +75,8 @@ This is a project I did as part of an examination for a statistic class (Méthod
 
 [Pokestats](https://github.com/jasonola/datascience/tree/master/R_shiny/Pokestats) : It's a more simple app than the fitness app showing data about pokemon stats in an interactive way. However, I used the Golem framework to build the app with modules. This makes the app scalable and easier to use among other devs, and multiple folders are created as would be a package, and moreover, it is easier to conduct tests.
 
-Geography quiz game app : coming soon !
+[GeoGame](https://github.com/jasonola/datascience/tree/master/R_shiny/GeoGame) : Full app using the golem framework to build a geography based quiz. There are 3 different quizzes, one on guessing a random selected country highlighted on a map, another on capitals (also with maps) and the last one with flags ! There is also an additionnal tab with info on different countries to compare. 
+
 
 ## [SPSS](https://github.com/jasonola/datascience/tree/master/spss) 
 
