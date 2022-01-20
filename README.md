@@ -1,4 +1,4 @@
-# Data Scientist / Visualisation Specialist
+# Data Scientist / Visualisation Specialist / Shiny app developper
 
 ## Jason Ola's data science portfolio 
 
