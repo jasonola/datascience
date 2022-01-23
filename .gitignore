@@ -8,3 +8,4 @@ gallery/data/IHME_DAH_DATABASE_1990_2019_Y2020M04D23.CSV
 R_advanced_data_visualisation/Report_3/data/oprvrs_essh_gb/data/WatercourseLink.dbf
 R_advanced_data_visualisation/Report_3/data/OS Open Greenspace (ESRI Shape File) GB/data/GB_GreenspaceSite.dbf
 .DS_Store
+*.Rproj
