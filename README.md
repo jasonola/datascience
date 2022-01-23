@@ -35,7 +35,7 @@ In the [Music genre recognition](https://github.com/jasonola/datascience/tree/ma
 
 ## R
 
-Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble, patchwork, leaflet, shiny, testthat, golem
+Techs : R, tidyverse, ggplot2, lubridate, sf, tidygraph, ggraph, tsibble, patchwork, leaflet, shiny, testthat, golem, plumber
 
 Skills covered : Reporting, data cleaning, data visualisation, chart reproduction, map creation, time series manipulation, graph visualisation, shiny app creation, tests
 
