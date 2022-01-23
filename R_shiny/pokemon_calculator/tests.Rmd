@@ -1,0 +1,67 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+data <- read_csv("pokemon_calculator/pokemon.csv")
+```
+
+```{r}
+stats <- data %>% 
+  select(name, hp, attack, defense, sp_attack,sp_defense, speed)
+```
+
+```{r}
+random_pokemon <- slice_sample(stats)
+random_pokemon
+```
+```{r}
+get_pokemon_basestats <- function(){
+  data <- read_csv("pokemon_calculator/pokemon.csv") %>% 
+    select(name, hp, attack, defense, sp_attack,sp_defense, speed)
+}
+```
+
+```{r}
+calculate_other_stat <- function(stat,iv, ev, lvl) {
+  
+    floor(((2*stat+iv+floor(ev/4))*lvl)/100+5)
+  
+}
+
+calculate_hp <- function(stat,iv, ev, lvl) {
+  
+    floor(((2*stat+iv+floor(ev/4))*lvl)/100)+lvl+10
+  
+ 
+}
+
+```
+
+```{r}
+calculate_all_stats <- function(pokemon, lvl=100, hp_iv=31,atk_iv=31,def_iv=31,sp_atk_iv=31,sp_def_iv=31,spd_iv=31,
+                                                  hp_ev=255,atk_ev=255,def_ev=255,sp_atk_ev=255,sp_def_ev=255,spd_ev=255) {
+  get_pokemon_basestats() %>% 
+    filter(name == pokemon) %>% 
+    mutate(hp = calculate_hp(hp,hp_iv, hp_ev, lvl),
+           attack = calculate_other_stat(attack,atk_iv, atk_ev, lvl),
+           defense = calculate_other_stat(defense,def_iv, def_ev, lvl),
+           sp_attack = calculate_other_stat(sp_attack,sp_atk_iv, sp_atk_ev, lvl),
+           sp_defense = calculate_other_stat(sp_defense,sp_def_iv, sp_def_ev, lvl),
+           speed = calculate_other_stat(speed,spd_iv, spd_ev, lvl)
+           )
+  
+}
+```
+
+
+
+```{r}
+calculate_all_stats("Blissey")
+```
+
