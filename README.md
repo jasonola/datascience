@@ -2,8 +2,7 @@
 
 ## Jason Ola's data science portfolio 
 
-Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science for humanities, and Geography, and EPFL extension school graduate in [machine learning](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_ML_certificate.pdf) as well as [communication and visualisation](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_communication_visualisation_certificate.pdf). In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. I will be describing the folders in the same order as I completed the projects, and I intended to showcase my project the way I completed it at the time so you can see my overall improvements.
-
+Welcome to my github profile ! I'm Jason Ola, student at Université de Lausanne in Computer Science for humanities, and Geography, and EPFL extension school graduate in [machine learning](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_ML_certificate.pdf) as well as [communication and visualisation](https://github.com/jasonola/datascience/blob/master/certifications/EPFL_communication_visualisation_certificate.pdf). In this repository you will find the work I've done so far during my studies at UNIL, EPFL and personal projects regarding Data Science. 
 Let me guide you through my files and projects !
 
 ## Python
@@ -77,6 +76,9 @@ This is a project I did as part of an examination for a statistic class (Méthod
 
 [GeoGame](https://github.com/jasonola/datascience/tree/master/R_shiny/GeoGame) : Full app using the golem framework to build a geography based quiz. There are 3 different quizzes, one on guessing a random selected country highlighted on a map, another on capitals (also with maps) and the last one with flags ! There is also an additionnal tab with info on different countries to compare. 
 
+
+### [R Plumber](https://github.com/jasonola/datascience/tree/master/R_plumber)
+[Pokemon Stats Calculator](https://github.com/jasonola/datascience/tree/master/R_plumber/pokemon_calculator) : Creation of an HTTP API with the `plumber` package. It is an API endpoint to calculate stats of pokemon according to its level, IVs, EVs and nature. (Still in progress)
 
 ## [SPSS](https://github.com/jasonola/datascience/tree/master/spss) 
 
