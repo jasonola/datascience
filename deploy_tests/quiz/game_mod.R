@@ -1,53 +1,39 @@
-#' capitals UI Function
-#'
-#' @description A shiny Module.
-#'
-#' @param id,input,output,session Internal parameters for {shiny}.
-#'
-#' @noRd
-#'
-#' @importFrom shiny NS tagList
-mod_capitals_ui <- function(id){
+mod_game_ui <- function(id) {
   ns <- NS(id)
   fluidPage(
+    shinyjs::useShinyjs(),
+    h3("Geo Quiz"),
     sidebarLayout(
       sidebarPanel(
         uiOutput(ns("selector")),
         actionButton(ns("submit"), label = "Submit"),
         actionButton(ns("refresh"), label = "Refresh")
       ),
-      mainPanel(
-        plotOutput(ns("game_map_country"))
-      )
-    ),
-  )
+      mainPanel(plotOutput(ns(
+        "game_map_country"
+      )))
+    ),)
 }
 
-#' capitals Server Functions
-#'
-#' @noRd
-mod_capitals_server <- function(id){
-  moduleServer( id, function(input, output, session){
+mod_game_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
     score <- reactiveVal(0)
     rd <- reactiveVal(0)
 
-    choices <- reactiveValues(
-      choices = shuffle_choices_cap()
-    )
+    choices <- reactiveValues(choices = shuffle_choices())
 
 
-    output$selector <- renderUI(
-      radioButtons(ns("radio_wrapper"),
-                   choices = sample(choices$choices[2:5]),
-                   label = stringr::str_glue("What is the capital of {choices$choices[1]}")),
-    )
+    output$selector <- renderUI(radioButtons(
+      ns("radio_wrapper"),
+      choices = sample(choices$choices),
+      label = "Guess the highlighted country :"
+    ),)
 
     output$game_map_country <- renderPlot({
       plot_continent_wth_country(choices$choices[1])
     })
-
 
     observeEvent(input$submit, {
 
@@ -55,7 +41,7 @@ mod_capitals_server <- function(id){
       rd(new_rd)
 
       if(rd()<=10){
-        if(input$radio_wrapper == choices$choices[2]){
+        if(input$radio_wrapper == choices$choices[1]){
           new_score <- score() + 1
           score(new_score)
           shinyalert::shinyalert("Yes the answer is correct !",
@@ -63,24 +49,25 @@ mod_capitals_server <- function(id){
                                  type = "success")
         }
         else{
-          shinyalert::shinyalert(stringr::str_glue("No Answer is False ! The answer is {choices$choices[2]}"),
+          shinyalert::shinyalert(stringr::str_glue("No Answer is False ! The answer is {choices$choices[1]}"),
                                  stringr::str_glue("Score : {score()}/10"),
                                  type = "error")
         }
       }
 
-      choices$choices <- shuffle_choices_cap()
+      choices$choices <- shuffle_choices()
 
       if(rd() == 10){
         if(score()>7){
-          shinyalert::shinyalert("Game over ! Great score you are a capitals mastermind !",
+          shinyalert::shinyalert("Game over ! Great score you are a countries mastermind !",
                                  stringr::str_glue("Your score is : {score()}/10"))
         }else{
           shinyalert::shinyalert("Game over ! Aww.. You will do better next time ;)",
                                  stringr::str_glue("Your score is : {score()}/10"))
         }
-        removeUI("#capitals_ui_1-submit")
+        removeUI("#game-submit")
       }
+
     })
     observeEvent(input$refresh, {
       shinyjs::refresh()
@@ -88,11 +75,5 @@ mod_capitals_server <- function(id){
 
 
   })
-
 }
 
-## To be copied in the UI
-# mod_capitals_ui("capitals_ui_1")
-
-## To be copied in the server
-# mod_capitals_server("capitals_ui_1")

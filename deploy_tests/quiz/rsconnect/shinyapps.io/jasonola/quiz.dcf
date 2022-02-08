@@ -1,0 +1,13 @@
+name: quiz
+title: quiz
+username:
+account: jasonola
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5605913
+bundleId: 5556427
+url: https://jasonola.shinyapps.io/quiz/
+when: 1644323355.25542
+lastSyncTime: 1644323355.25543
+asMultiple: FALSE
+asStatic: FALSE
