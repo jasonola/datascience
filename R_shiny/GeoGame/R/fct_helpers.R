@@ -170,21 +170,23 @@ get_country_row <- function(c) {
 }
 
 shuffle_choices <- function() {
-  choice1 <- sample(world_countries, 1)
+  samp <- dplyr::sample_n(world, 1)
 
-  choice2 <- get_country_row(choice1) %>%
+  choice1 <- samp %>% dplyr::pull(SOVEREIGNT)
+
+  choice2 <- samp %>%
     dplyr::pull(CONTINENT) %>%
     get_countries_by_continent() %>%
     dplyr::setdiff(choice1) %>%
     sample(1)
 
-  choice3 <- get_country_row(choice1) %>%
+  choice3 <- samp %>%
     dplyr::pull(CONTINENT) %>%
     get_countries_by_continent() %>%
     dplyr::setdiff(c(choice1, choice2)) %>%
     sample(1)
 
-  choice4 <- get_country_row(choice1) %>%
+  choice4 <- samp %>%
     dplyr::pull(CONTINENT) %>%
     get_countries_by_continent() %>%
     dplyr::setdiff(c(choice1, choice2, choice3)) %>%
