@@ -9,11 +9,13 @@ Welcome to my readme file for the capstone project ! This project is a Shiny app
 - Flags : Game app for guessing flags
 - Info : Tab that display info on selected countries
 
+To play the game, click [here](https://jasonola.shinyapps.io/geogame-full)
+
 Here is a screen shot of the Countries tab : 
 
 ![Screenshot](screenshot.png)
 
-To play the game, click [here](https://jasonola.shinyapps.io/geogame-full)
+
 
 ## Data
 
