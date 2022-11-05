@@ -13,6 +13,8 @@ Here is a screen shot of the Countries tab :
 
 ![Screenshot](screenshot.png)
 
+To play the game, click [here](https://jasonola.shinyapps.io/geogame-full)
+
 ## Data
 
 - [Natural earth](https://www.naturalearthdata.com/downloads/)
